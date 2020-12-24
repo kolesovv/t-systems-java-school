@@ -19,7 +19,7 @@
         </tr>
         <c:forEach var="tempStations" items="${stations}">
             <tr>
-                <td>${tempStations.name}</td>
+                <td>${tempStations.nameStation}</td>
             </tr>
         </c:forEach>
     </table>

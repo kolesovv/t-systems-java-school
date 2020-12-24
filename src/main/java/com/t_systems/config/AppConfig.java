@@ -5,31 +5,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@EnableWebMvc
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.t_systems")
 public class AppConfig implements WebMvcConfigurer {
-    // Define Spring MVC view resolver
-    @Bean
-    public InternalResourceViewResolver viewResolver(){
-        InternalResourceViewResolver bean = new InternalResourceViewResolver();
-        bean.setViewClass(JstlView.class);
-        bean.setPrefix("/WEB-INF/view");
-        bean.setSuffix(".jsp");
-        return bean;
-    }
-
     // Define Database DataSource / connection pool
     @Bean
     public DataSource comboPooledDataSource(){
