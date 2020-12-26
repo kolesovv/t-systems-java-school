@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface StationDAO {
     List<Station> getStations();
+
+    void saveStation (Station station);
+
+    Station getStation(int id);
+
+    void deleteStation(int id);
 }

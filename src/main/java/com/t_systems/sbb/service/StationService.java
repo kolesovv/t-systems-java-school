@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface StationService {
     List<Station> getStations();
+
+    void saveStation (Station station);
+
+    Station getStation(int id);
+
+    void deleteStation(int id);
 }

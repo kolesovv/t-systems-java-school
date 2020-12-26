@@ -18,4 +18,19 @@ public class StationServiceImpl implements StationService {
     public List<Station> getStations() {
         return stationDAO.getStations();
     }
+
+    @Override
+    public void saveStation(Station station) {
+        stationDAO.saveStation(station);
+    }
+
+    @Override
+    public Station getStation(int id) {
+        return stationDAO.getStation(id);
+    }
+
+    @Override
+    public void deleteStation(int id) {
+        stationDAO.deleteStation(id);
+    }
 }

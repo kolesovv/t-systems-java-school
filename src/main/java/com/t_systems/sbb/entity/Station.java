@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "station_id")
+    @Column(name = "id")
     private int idStation;
     @Column(name = "station_name")
     private String nameStation;

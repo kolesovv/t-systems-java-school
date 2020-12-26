@@ -20,4 +20,24 @@ public class StationDAOImpl implements StationDAO {
         Query<Station>stationQuery = session.createQuery("FROM Station");
         return stationQuery.getResultList();
     }
+
+    @Override
+    public void saveStation(Station station) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(station);
+    }
+
+    @Override
+    public Station getStation(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Station.class, id);
+    }
+
+    @Override
+    public void deleteStation(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Station>stationQuery = session.createQuery("DELETE FROM Station WHERE id =: stationId");
+        stationQuery.setParameter("stationId", id);
+        stationQuery.executeUpdate();
+    }
 }

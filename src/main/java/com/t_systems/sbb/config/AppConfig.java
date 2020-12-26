@@ -1,4 +1,4 @@
-package com.t_systems.config;
+package com.t_systems.sbb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +14,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.t_systems")
+@ComponentScan(basePackages = "com.t_systems.sbb")
 public class AppConfig implements WebMvcConfigurer {
     // Define Database DataSource / connection pool
     @Bean

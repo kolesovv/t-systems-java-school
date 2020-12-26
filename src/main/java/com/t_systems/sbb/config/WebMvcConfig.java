@@ -1,4 +1,4 @@
-package com.t_systems.config;
+package com.t_systems.sbb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.t_systems")
+@ComponentScan(basePackages = "com.t_systems.sbb")
 public class WebMvcConfig implements WebMvcConfigurer {
     // Define Spring MVC view resolver
     @Bean
