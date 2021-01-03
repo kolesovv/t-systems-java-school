@@ -14,7 +14,7 @@
 
 <div class="container">
     <h2>SBB</h2>
-    <p>Stations:</p>
+    <p>Paths:</p>
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"
@@ -26,26 +26,32 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Station name</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th>id</th>
+            <th>Departure station</th>
+            <th>Arrival station</th>
+            <th>Departure time</th>
+            <th>Arrival time</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="tempStations" items="${stations}">
+        <c:forEach var="tempPath" items="${paths}">
             <c:url var="deleteLink" value="/stations/deleteStation">
-                <c:param name="stationId" value="${tempStations.idStation}"/>
+                <c:param name="stationId" value="${tempPath.id}"/>
             </c:url>
             <c:url var="updateLink" value="/stations/updateStation">
-                <c:param name="stationId" value="${tempStations.idStation}"/>
+                <c:param name="stationId" value="${tempPath.id}"/>
             </c:url>
             <tr>
-                <td>${tempStations.nameStation}</td>
+                <td>${tempPath.id}</td>
+                <td>${tempPath.stationFrom.nameStation}</td>
+                <td>${tempPath.stationTo.nameStation}</td>
+                <td>${tempPath.departureTime}</td>
+                <td>${tempPath.arrivalTime}</td>
                 <td>
-                    <a href="${updateLink}">update</a>
+                    <a href="">update</a>
                 </td>
                 <td>
-                    <a href="${deleteLink}">delete</a>
+                    <a href="">delete</a>
                 </td>
             </tr>
         </c:forEach>

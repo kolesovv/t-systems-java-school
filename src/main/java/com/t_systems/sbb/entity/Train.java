@@ -1,6 +1,8 @@
 package com.t_systems.sbb.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "train")
@@ -8,27 +10,29 @@ public class Train {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "train_number")
-    private int trainNumber;
+    private int numberTrain;
     @Column(name = "train_name")
     private String trainName;
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "train_path",
+            joinColumns = @JoinColumn(name = "train_number"),
+            inverseJoinColumns = @JoinColumn(name = "path_id"))
+    private List<Path> pathList;
 
     public Train() {
     }
 
-    public Train(String trainName, Schedule schedule) {
+    public Train(String trainName) {
         this.trainName = trainName;
-        this.schedule = schedule;
     }
 
-    public int getTrainNumber() {
-        return trainNumber;
+    public int getNumberTrain() {
+        return numberTrain;
     }
 
-    public void setTrainNumber(int trainNumber) {
-        this.trainNumber = trainNumber;
+    public void setNumberTrain(int trainNumber) {
+        this.numberTrain = trainNumber;
     }
 
     public String getTrainName() {
@@ -39,20 +43,25 @@ public class Train {
         this.trainName = trainName;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
+    public List<Path> getPathList() {
+        return pathList;
     }
 
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+    public void setPathList(List<Path> pathList) {
+        this.pathList = pathList;
+    }
+
+    public void addPath(Path path){
+        if (pathList == null) pathList = new ArrayList<>();
+        pathList.add(path);
     }
 
     @Override
     public String toString() {
         return "Train{" +
-                "trainNumber=" + trainNumber +
+                "numberTrain=" + numberTrain +
                 ", trainName='" + trainName + '\'' +
-                ", schedule=" + schedule +
+                ", pathList=" + pathList +
                 '}';
     }
 }

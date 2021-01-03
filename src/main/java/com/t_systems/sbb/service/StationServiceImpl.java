@@ -20,16 +20,19 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
+    @Transactional
     public void saveStation(Station station) {
         stationDAO.saveStation(station);
     }
 
     @Override
+    @Transactional
     public Station getStation(int id) {
         return stationDAO.getStation(id);
     }
 
     @Override
+    @Transactional
     public void deleteStation(int id) {
         stationDAO.deleteStation(id);
     }

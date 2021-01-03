@@ -20,7 +20,10 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public DataSource comboPooledDataSource(){
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/sbb_db?useSSL=false&serverTimezone=UTC");
+        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/sbb_db?" +
+                "useSSL=false&" +
+                "serverTimezone=UTC&" +
+                "zeroDateTimeBehavior=convertToNull");
         dataSource.setUser("root");
         dataSource.setPassword("root");
 
