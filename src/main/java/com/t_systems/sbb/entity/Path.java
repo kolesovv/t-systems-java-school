@@ -1,44 +1,35 @@
 package com.t_systems.sbb.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Table(name = "path")
 public class Path {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @ManyToOne
-    @JoinColumn(name = "station_from")
+    @JoinColumn(name = "station_from", referencedColumnName = "id", insertable = false, updatable = false)
     private Station stationFrom;
     @ManyToOne
-    @JoinColumn(name = "station_to")
+    @JoinColumn(name = "station_to", referencedColumnName = "id", insertable = false, updatable = false)
     private Station stationTo;
-    @Column(name = "arrival_time")
-    private Date arrivalTime;
-    @Column(name = "departure_time")
-    private Date departureTime;
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "train_path",
-            joinColumns = @JoinColumn(name = "path_id"),
-            inverseJoinColumns = @JoinColumn(name = "train_number"))
-    private List<Train> trainList;
-
+    @OneToMany(mappedBy = "path", targetEntity = Schedule.class, fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Schedule> scheduleList;
 
     public Path() {
     }
 
-    public Path(Station stationFrom, Station stationTo, Date arrivalTime, Date departureTime) {
-        this.stationTo = stationFrom;
+    public Path(Station stationFrom, Station stationTo, List<Schedule> scheduleList) {
+        this.stationFrom = stationFrom;
         this.stationTo = stationTo;
-        this.arrivalTime = arrivalTime;
-        this.departureTime = departureTime;
+        this.scheduleList = scheduleList;
     }
 
     public int getId() {
@@ -65,30 +56,30 @@ public class Path {
         this.stationTo = stationTo;
     }
 
-    public Date getArrivalTime() throws ParseException {
-        return arrivalTime;
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
     }
 
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
     }
 
-    public Date getDepartureTime() throws ParseException {
-        return departureTime;
-    }
+    public void addSchedule(Schedule schedule){
+        if(scheduleList == null){
+            scheduleList = new ArrayList<>();
+        }
 
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
+        scheduleList.add(schedule);
+        schedule.setPath(this);
     }
 
     @Override
     public String toString() {
         return "Path{" +
                 "id=" + id +
-                ", stationFrom='" + stationFrom + '\'' +
-                ", stationTo='" + stationTo + '\'' +
-                ", arrivalTime=" + arrivalTime +
-                ", departureTime=" + departureTime +
+                ", stationFrom=" + stationFrom +
+                ", stationTo=" + stationTo +
+                ", scheduleList=" + scheduleList +
                 '}';
     }
 }

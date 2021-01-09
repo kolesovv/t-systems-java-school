@@ -1,6 +1,7 @@
 package com.t_systems.sbb.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +14,17 @@ public class Train {
     private int numberTrain;
     @Column(name = "train_name")
     private String trainName;
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "train_path",
-            joinColumns = @JoinColumn(name = "train_number"),
-            inverseJoinColumns = @JoinColumn(name = "path_id"))
-    private List<Path> pathList;
+    @OneToMany(mappedBy = "train", targetEntity = Schedule.class, fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                    CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Schedule> scheduleList;
 
     public Train() {
+    }
+
+    public Train(String trainName, List<Schedule> scheduleList) {
+        this.trainName = trainName;
+        this.scheduleList = scheduleList;
     }
 
     public Train(String trainName) {
@@ -43,17 +47,21 @@ public class Train {
         this.trainName = trainName;
     }
 
-    public List<Path> getPathList() {
-        return pathList;
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
     }
 
-    public void setPathList(List<Path> pathList) {
-        this.pathList = pathList;
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
     }
 
-    public void addPath(Path path){
-        if (pathList == null) pathList = new ArrayList<>();
-        pathList.add(path);
+    public void addSchedule(Schedule schedule){
+        if(scheduleList == null){
+            scheduleList = new ArrayList<>();
+        }
+
+        scheduleList.add(schedule);
+        schedule.setTrain(this);
     }
 
     @Override
@@ -61,7 +69,7 @@ public class Train {
         return "Train{" +
                 "numberTrain=" + numberTrain +
                 ", trainName='" + trainName + '\'' +
-                ", pathList=" + pathList +
+                ", scheduleList=" + scheduleList +
                 '}';
     }
 }

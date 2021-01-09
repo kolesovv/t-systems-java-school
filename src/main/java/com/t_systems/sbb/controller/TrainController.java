@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/trains")
+@RequestMapping
 public class TrainController {
     @Autowired
     private TrainService trainService;
@@ -32,7 +32,7 @@ public class TrainController {
     @PostMapping("/saveTrain")
     public String saveTrain(@ModelAttribute("train") Train train){
         trainService.saveTrain(train);
-        return "redirect:/trains/list-trains";
+        return "redirect:/list-trains";
     }
 
     @GetMapping("/updateTrain")
@@ -45,6 +45,6 @@ public class TrainController {
     @GetMapping("/deleteTrain")
     public String deleteTrain(@RequestParam("numberTrain") int id){
         trainService.deleteTrain(id);
-        return "redirect:/trains/list-trains";
+        return "redirect:/list-trains";
     }
 }

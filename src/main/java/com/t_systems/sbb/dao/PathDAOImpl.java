@@ -1,7 +1,6 @@
 package com.t_systems.sbb.dao;
 
 import com.t_systems.sbb.entity.Path;
-import com.t_systems.sbb.entity.Station;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

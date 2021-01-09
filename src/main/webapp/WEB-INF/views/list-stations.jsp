@@ -33,10 +33,10 @@
         </thead>
         <tbody>
         <c:forEach var="tempStations" items="${stations}">
-            <c:url var="deleteLink" value="/stations/deleteStation">
+            <c:url var="deleteLink" value="/deleteStation">
                 <c:param name="stationId" value="${tempStations.idStation}"/>
             </c:url>
-            <c:url var="updateLink" value="/stations/updateStation">
+            <c:url var="updateLink" value="/updateStation">
                 <c:param name="stationId" value="${tempStations.idStation}"/>
             </c:url>
             <tr>
