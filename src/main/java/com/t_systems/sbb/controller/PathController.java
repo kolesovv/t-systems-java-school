@@ -1,54 +1,46 @@
 package com.t_systems.sbb.controller;
 
 import com.t_systems.sbb.entity.Path;
-import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
-import com.t_systems.sbb.service.PathService;
-import com.t_systems.sbb.service.StationService;
-import com.t_systems.sbb.service.TrainService;
+import com.t_systems.sbb.exception.NotFoundException;
+import com.t_systems.sbb.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Collection;
 
-@Controller
-@RequestMapping
+@RestController
+@RequestMapping("/path")
 public class PathController {
     @Autowired
-    private PathService pathService;
+    private GenericService<Path> pathGenericService;
 
-    @GetMapping("/list-paths")
-    public String listPaths(Model model){
-        List<Path> pathList = pathService.getPaths();
-        model.addAttribute("paths", pathList);
-        return "schedule";
+    @GetMapping("/")
+    public Collection<Path> listPaths(){
+        return pathGenericService.findAll();
     }
 
-    @GetMapping("/addPath")
-    public String addPath(Model model) {
-        Path path = new Path();
-        model.addAttribute("path", path);
-        return "schedule-form";
+    @PostMapping()
+    public void addPath(@RequestBody Path path) {
+        path.setId(0);
+        pathGenericService.save(path);
     }
 
-    @PostMapping("/savePath")
-    public String savePath(@ModelAttribute("path") Path path){
-        pathService.savePath(path);
-        return "schedule";
+    @PutMapping()
+    public void savePath(@RequestBody Path path){
+        pathGenericService.save(path);
     }
 
-    @GetMapping("/updatePath")
-    public String updatePath(@RequestParam("id")int id, Model model){
-        Path path = pathService.getPath(id);
-        model.addAttribute("path", path);
-        return "schedule-form";
+    @PutMapping("/{id}")
+    public void updatePath(@PathVariable("id")long id, @RequestBody Path path){
+        pathGenericService.findById(id).setStationFrom(path.getStationFrom());
+        pathGenericService.findById(id).setStationTo(path.getStationTo());
     }
 
-    @GetMapping("/deletePath")
-    public String deletePath(@RequestParam("id") int id){
-        pathService.deletePath(id);
-        return "schedule";
+    @DeleteMapping("/{id}")
+    public void deletePath(@PathVariable("id") long id){
+        Path path = pathGenericService.findById(id);
+        if (path == null) throw new NotFoundException("Path id not found - " + id);
+        pathGenericService.deleteById(id);
     }
 }

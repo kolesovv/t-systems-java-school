@@ -16,7 +16,7 @@ public class ScheduleDAOImpl implements GenericDAO<Schedule> {
     SessionFactory sessionFactory;
 
     @Override
-    public Schedule findById(int id) {
+    public Schedule findById(long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Schedule.class, id);
     }
@@ -45,7 +45,7 @@ public class ScheduleDAOImpl implements GenericDAO<Schedule> {
     }
 
     @Override
-    public void deleteById(int entityId) {
+    public void deleteById(long entityId) {
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> trainQuery = session.createQuery("DELETE FROM Schedule WHERE id=: scheduleId");
         trainQuery.setParameter("scheduleId", entityId);

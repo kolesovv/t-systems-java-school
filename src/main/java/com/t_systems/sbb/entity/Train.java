@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "train")
-public class Train {
+public class Train implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "train_number")

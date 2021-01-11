@@ -1,12 +1,12 @@
 package com.t_systems.sbb.dao;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 
 public interface GenericDAO <T extends Serializable> {
-    T findById(final int id);
+    T findById(final long id);
 
-    List<T> findAll();
+    Collection<T> findAll();
 
     void create(final T entity);
 
@@ -14,5 +14,5 @@ public interface GenericDAO <T extends Serializable> {
 
     void delete(final T entity);
 
-    void deleteById(final int entityId);
+    void deleteById(final long entityId);
 }

@@ -1,40 +1,54 @@
 package com.t_systems.sbb.service;
 
+import com.t_systems.sbb.dao.GenericDAO;
 import com.t_systems.sbb.dao.TrainDAOImpl;
 import com.t_systems.sbb.entity.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 
 @Service
-public class TrainServiceImpl implements TrainService {
+public class TrainServiceImpl implements GenericService<Train> {
 
     @Autowired
-    private TrainDAOImpl trainDAO;
+    private GenericDAO<Train> trainGenericDAO;
 
     @Override
     @Transactional
-    public List<Train> getTrain() {
-        return trainDAO.getTrain();
+    public Train findById(long id) {
+        return trainGenericDAO.findById(id);
     }
 
     @Override
     @Transactional
-    public void saveTrain(Train train) {
-        trainDAO.saveTrain(train);
+    public Collection<Train> findAll() {
+        return trainGenericDAO.findAll();
     }
 
     @Override
     @Transactional
-    public Train getTrain(int id) {
-        return trainDAO.getTrain(id);
+    public void create(Train entity) {
+        trainGenericDAO.create(entity);
     }
 
     @Override
     @Transactional
-    public void deleteTrain(int id) {
-        trainDAO.deleteTrain(id);
+    public void save(Train entity) {
+        trainGenericDAO.save(entity);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Train entity) {
+        trainGenericDAO.delete(entity);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(long entityId) {
+        trainGenericDAO.deleteById(entityId);
     }
 }

@@ -1,8 +1,11 @@
 package com.t_systems.sbb.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,29 +13,54 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.t_systems.sbb")
+@PropertySource({"classpath:persistence-mysql.properties"})
 public class AppConfig implements WebMvcConfigurer {
+
+    @Autowired
+    Environment env;
+
+    private final Logger logger = Logger.getLogger(getClass().getName());
+
     // Define Database DataSource / connection pool
     @Bean
     public DataSource comboPooledDataSource(){
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/sbb_db?" +
-                "useSSL=false&" +
-                "serverTimezone=UTC&" +
-                "zeroDateTimeBehavior=convertToNull");
-        dataSource.setUser("root");
-        dataSource.setPassword("root");
 
-        dataSource.setInitialPoolSize(5);
-        dataSource.setMinPoolSize(5);
-        dataSource.setMaxPoolSize(20);
-        dataSource.setMaxIdleTime(30000);
+        try {
+            dataSource.setDriverClass("com.mysql.jdbc.Driver");
+        } catch (PropertyVetoException e) {
+            throw new RuntimeException(e);
+        }
+
+        logger.info("jdbc.url=" + env.getProperty("jdbc.url"));
+        logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
+
+        dataSource.setJdbcUrl("jdbc.url");
+        dataSource.setUser("jdbc.user");
+        dataSource.setPassword("jdbc.password");
+
+        dataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
+        dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
+        dataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
+        dataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 
         return dataSource;
+    }
+
+    // need a helper method
+    // read environment property and convert to int
+
+    private int getIntProperty(String propName) {
+        String propVal = env.getProperty(propName);
+        // now convert to int
+        return Integer.parseInt(propVal);
     }
 
     // Setup Hibernate session factory
@@ -40,7 +68,7 @@ public class AppConfig implements WebMvcConfigurer {
     public LocalSessionFactoryBean sessionFactoryBean(){
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(comboPooledDataSource());
-        sessionFactoryBean.setPackagesToScan("com.t_systems.sbb.entity");
+        sessionFactoryBean.setPackagesToScan("hibernate.packagesToScan");
         sessionFactoryBean.setHibernateProperties(hibernateProperties());
 
         return sessionFactoryBean;
@@ -48,9 +76,8 @@ public class AppConfig implements WebMvcConfigurer {
 
     private Properties hibernateProperties(){
         Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.setProperty("hibernate.show_sql", "true");
-
+        properties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         return properties;
     }
 

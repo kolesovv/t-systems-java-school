@@ -7,37 +7,48 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Collection;
+
 @Repository
-public class StationDAOImpl implements StationDAO {
+public class StationDAOImpl implements GenericDAO<Station> {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Station> getStations() {
+    public Station findById(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Station.class, id);
+    }
+
+    @Override
+    public Collection<Station> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Station>stationQuery = session.createQuery("FROM Station");
         return stationQuery.getResultList();
     }
 
     @Override
-    public void saveStation(Station station) {
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(station);
+    public void create(Station entity) {
+
     }
 
     @Override
-    public Station getStation(int id) {
+    public void save(Station entity) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Station.class, id);
+        session.saveOrUpdate(entity);
     }
 
     @Override
-    public void deleteStation(int id) {
+    public void delete(Station entity) {
+
+    }
+
+    @Override
+    public void deleteById(long entityId) {
         Session session = sessionFactory.getCurrentSession();
         Query<Station>stationQuery = session.createQuery("DELETE FROM Station WHERE id =: stationId");
-        stationQuery.setParameter("stationId", id);
+        stationQuery.setParameter("stationId", entityId);
         stationQuery.executeUpdate();
     }
 }

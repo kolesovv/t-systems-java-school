@@ -7,38 +7,48 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Collection;
 
 @Repository
-public class TrainDAOImpl implements TrainDAO {
+public class TrainDAOImpl implements GenericDAO<Train> {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Train> getTrain() {
+    public Train findById(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Train.class, id);
+    }
+
+    @Override
+    public Collection<Train> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Train>trainQuery = session.createQuery("FROM Train");
         return trainQuery.getResultList();
     }
 
     @Override
-    public void saveTrain(Train train) {
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(train);
+    public void create(Train entity) {
+
     }
 
     @Override
-    public Train getTrain(int id) {
+    public void save(Train entity) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Train.class, id);
+        session.saveOrUpdate(entity);
     }
 
     @Override
-    public void deleteTrain(int id) {
+    public void delete(Train entity) {
+
+    }
+
+    @Override
+    public void deleteById(long entityId) {
         Session session = sessionFactory.getCurrentSession();
         Query<Train>trainQuery = session.createQuery("DELETE FROM Train WHERE id=: trainId");
-        trainQuery.setParameter("trainId", id);
+        trainQuery.setParameter("trainId", entityId);
         trainQuery.executeUpdate();
     }
 }

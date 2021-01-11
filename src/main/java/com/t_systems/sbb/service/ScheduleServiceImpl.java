@@ -6,25 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Collection;
 
 @Service
 public class ScheduleServiceImpl implements GenericService<Schedule> {
 
     @Autowired
-    GenericDAO<Schedule> genericDAO;
+    GenericDAO<Schedule> scheduleGenericDAO;
 
 
     @Override
     @Transactional
-    public Schedule findById(int id) {
-        return genericDAO.findById(id);
+    public Schedule findById(long id) {
+        return scheduleGenericDAO.findById(id);
     }
 
     @Override
     @Transactional
-    public List<Schedule> findAll() {
-        return genericDAO.findAll();
+    public Collection<Schedule> findAll() {
+        return scheduleGenericDAO.findAll();
     }
 
     @Override
@@ -42,12 +42,12 @@ public class ScheduleServiceImpl implements GenericService<Schedule> {
     @Override
     @Transactional
     public void delete(Schedule entity) {
-        genericDAO.delete(entity);
+        scheduleGenericDAO.delete(entity);
     }
 
     @Override
     @Transactional
-    public void deleteById(int entityId) {
-        genericDAO.deleteById(entityId);
+    public void deleteById(long entityId) {
+        scheduleGenericDAO.deleteById(entityId);
     }
 }

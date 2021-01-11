@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "path")
-public class Path {
+public class Path implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

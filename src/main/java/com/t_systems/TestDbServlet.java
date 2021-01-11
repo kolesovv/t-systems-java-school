@@ -8,9 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.logging.Logger;
+
 
 @WebServlet("/test_db_connection")
 public class TestDbServlet extends HttpServlet {
+
+    private final Logger logger = Logger.getLogger(getClass().getName());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         final String LOGIN = "root";
@@ -20,10 +25,10 @@ public class TestDbServlet extends HttpServlet {
 
         try {
             PrintWriter out = resp.getWriter();
-            out.println("Connecting to database: " + JDBC_URL);
+            logger.info("Connecting to database: " + JDBC_URL);
             Class.forName(DRIVER);
             Connection connection = DriverManager.getConnection(JDBC_URL, LOGIN, PASSWORD);
-            out.println("Connected to sbb_db");
+            logger.info("Connected to sbb_db");
             connection.close();
         }
         catch (Exception e){

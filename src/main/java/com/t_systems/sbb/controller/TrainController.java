@@ -1,50 +1,44 @@
 package com.t_systems.sbb.controller;
 
 import com.t_systems.sbb.entity.Train;
-import com.t_systems.sbb.service.TrainService;
+import com.t_systems.sbb.exception.NotFoundException;
+import com.t_systems.sbb.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Collection;
 
-@Controller
-@RequestMapping
+@RestController
+@RequestMapping("/train")
 public class TrainController {
     @Autowired
-    private TrainService trainService;
+    private GenericService<Train> trainGenericService;
 
-    @GetMapping("/list-trains")
-    public String listTrains(Model model){
-        List<Train>trainList = trainService.getTrain();
-        model.addAttribute("trains", trainList);
-        return "list-trains";
+    @GetMapping("/")
+    public Collection<Train> listTrains(){
+        return trainGenericService.findAll();
     }
 
-    @GetMapping("/addTrain")
-    public String addTrain(Model model) {
-        Train train = new Train();
-        model.addAttribute("train", train);
-        return "train-form";
+    @PostMapping()
+    public void addTrain(@RequestBody Train train) {
+        train.setNumberTrain(0);
+        trainGenericService.save(train);
     }
 
-    @PostMapping("/saveTrain")
-    public String saveTrain(@ModelAttribute("train") Train train){
-        trainService.saveTrain(train);
-        return "redirect:/list-trains";
+    @PutMapping()
+    public void saveTrain(@RequestBody Train train){
+        trainGenericService.save(train);
     }
 
-    @GetMapping("/updateTrain")
-    public String updateTrain(@RequestParam("numberTrain")int id, Model model){
-        Train train = trainService.getTrain(id);
-        model.addAttribute("train", train);
-        return "train-form";
+    @PutMapping("/{id}")
+    public void updateTrain(@PathVariable("id")long id, @RequestBody Train train){
+        trainGenericService.findById(id).setTrainName(train.getTrainName());
     }
 
-    @GetMapping("/deleteTrain")
-    public String deleteTrain(@RequestParam("numberTrain") int id){
-        trainService.deleteTrain(id);
-        return "redirect:/list-trains";
+    @DeleteMapping("/{id}")
+    public void deleteTrain(@PathVariable("id") long id){
+        Train train = trainGenericService.findById(id);
+        if (train == null) throw new NotFoundException("Train id not found - " + id);
+        trainGenericService.deleteById(id);
     }
 }

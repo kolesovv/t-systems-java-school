@@ -1,10 +1,11 @@
 package com.t_systems.sbb.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "station")
-public class Station {
+public class Station implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

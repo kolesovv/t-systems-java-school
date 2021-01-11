@@ -1,43 +1,52 @@
 package com.t_systems.sbb.service;
 
-import com.t_systems.sbb.dao.PathDAO;
+import com.t_systems.sbb.dao.GenericDAO;
 import com.t_systems.sbb.entity.Path;
-import com.t_systems.sbb.entity.Station;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Collection;
 
 @Service
-public class PathServiceImpl implements PathService {
+public class PathServiceImpl implements GenericService<Path> {
 
     @Autowired
-    private PathDAO pathDAO;
+    private GenericDAO<Path> pathGenericDAO;
 
     @Override
     @Transactional
-    public List<Path> getPaths() {
-        return pathDAO.getPaths();
+    public Path findById(long id) {
+        return pathGenericDAO.findById(id);
     }
 
     @Override
     @Transactional
-    public void savePath(Path path) {
-        pathDAO.savePath(path);
+    public Collection<Path> findAll() {
+        return pathGenericDAO.findAll();
     }
 
     @Override
     @Transactional
-    public Path getPath(int id) {
-        return pathDAO.getPath(id);
+    public void create(Path entity) {
+        pathGenericDAO.create(entity);
     }
 
     @Override
     @Transactional
-    public void deletePath(int id) {
-        pathDAO.deletePath(id);
+    public void save(Path entity) {
+        pathGenericDAO.save(entity);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Path entity) {
+        pathGenericDAO.delete(entity);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(long entityId) {
+        pathGenericDAO.deleteById(entityId);
     }
 }

@@ -1,39 +1,51 @@
 package com.t_systems.sbb.service;
 
-import com.t_systems.sbb.dao.StationDAO;
+import com.t_systems.sbb.dao.GenericDAO;
 import com.t_systems.sbb.entity.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Collection;
 
 @Service
-public class StationServiceImpl implements StationService {
+public class StationServiceImpl implements GenericService<Station> {
     @Autowired
-    private StationDAO stationDAO;
+    private GenericDAO<Station> stationGenericDAO;
 
     @Override
     @Transactional
-    public List<Station> getStations() {
-        return stationDAO.getStations();
+    public Station findById(long id) {
+        return stationGenericDAO.findById(id);
     }
 
     @Override
     @Transactional
-    public void saveStation(Station station) {
-        stationDAO.saveStation(station);
+    public Collection<Station> findAll() {
+        return stationGenericDAO.findAll();
     }
 
     @Override
     @Transactional
-    public Station getStation(int id) {
-        return stationDAO.getStation(id);
+    public void create(Station entity) {
+        stationGenericDAO.create(entity);
     }
 
     @Override
     @Transactional
-    public void deleteStation(int id) {
-        stationDAO.deleteStation(id);
+    public void save(Station entity) {
+        stationGenericDAO.save(entity);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Station entity) {
+        stationGenericDAO.delete(entity);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(long entityId) {
+        stationGenericDAO.deleteById(entityId);
     }
 }
