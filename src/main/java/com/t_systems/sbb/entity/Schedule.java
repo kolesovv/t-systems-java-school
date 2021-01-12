@@ -1,5 +1,7 @@
 package com.t_systems.sbb.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -10,7 +12,7 @@ public class Schedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
     @Column(name = "arrival_time")
     private Date arrivalTime;
     @Column(name = "departure_time")
@@ -34,11 +36,11 @@ public class Schedule implements Serializable {
         this.train = train;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -58,6 +60,7 @@ public class Schedule implements Serializable {
         this.departureTime = departureTime;
     }
 
+    @JsonBackReference
     public Path getPath() {
         return path;
     }
@@ -66,6 +69,7 @@ public class Schedule implements Serializable {
         this.path = path;
     }
 
+    @JsonBackReference
     public Train getTrain() {
         return train;
     }

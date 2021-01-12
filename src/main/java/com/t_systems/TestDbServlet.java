@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 @WebServlet("/test_db_connection")
 public class TestDbServlet extends HttpServlet {
 
-    private final Logger logger = Logger.getLogger(getClass().getName());
+    private final Logger logger = Logger.getLogger(String.valueOf(TestDbServlet.class));
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {

@@ -1,5 +1,8 @@
 package com.t_systems.sbb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,11 +10,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "path")
+
 public class Path implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
     @ManyToOne
     @JoinColumn(name = "station_from", referencedColumnName = "id", insertable = false, updatable = false)
     private Station stationFrom;
@@ -32,11 +36,11 @@ public class Path implements Serializable {
         this.scheduleList = scheduleList;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -56,6 +60,7 @@ public class Path implements Serializable {
         this.stationTo = stationTo;
     }
 
+    @JsonManagedReference
     public List<Schedule> getScheduleList() {
         return scheduleList;
     }

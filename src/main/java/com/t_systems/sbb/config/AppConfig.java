@@ -42,9 +42,9 @@ public class AppConfig implements WebMvcConfigurer {
         logger.info("jdbc.url=" + env.getProperty("jdbc.url"));
         logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
 
-        dataSource.setJdbcUrl("jdbc.url");
-        dataSource.setUser("jdbc.user");
-        dataSource.setPassword("jdbc.password");
+        dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+        dataSource.setUser(env.getProperty("jdbc.user"));
+        dataSource.setPassword(env.getProperty("jdbc.password"));
 
         dataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
         dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
@@ -68,7 +68,7 @@ public class AppConfig implements WebMvcConfigurer {
     public LocalSessionFactoryBean sessionFactoryBean(){
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(comboPooledDataSource());
-        sessionFactoryBean.setPackagesToScan("hibernate.packagesToScan");
+        sessionFactoryBean.setPackagesToScan("com.t_systems.sbb.entity");
         sessionFactoryBean.setHibernateProperties(hibernateProperties());
 
         return sessionFactoryBean;

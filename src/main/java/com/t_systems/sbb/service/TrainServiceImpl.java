@@ -1,14 +1,12 @@
 package com.t_systems.sbb.service;
 
 import com.t_systems.sbb.dao.GenericDAO;
-import com.t_systems.sbb.dao.TrainDAOImpl;
 import com.t_systems.sbb.entity.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class TrainServiceImpl implements GenericService<Train> {

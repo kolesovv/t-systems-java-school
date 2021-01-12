@@ -1,5 +1,7 @@
 package com.t_systems.sbb.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,8 +12,8 @@ import java.util.List;
 public class Train implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "train_number")
-    private int numberTrain;
+    @Column(name = "train_id")
+    private long numberTrain;
     @Column(name = "train_name")
     private String trainName;
     @OneToMany(mappedBy = "train", targetEntity = Schedule.class, fetch = FetchType.EAGER,
@@ -31,11 +33,11 @@ public class Train implements Serializable {
         this.trainName = trainName;
     }
 
-    public int getNumberTrain() {
+    public long getNumberTrain() {
         return numberTrain;
     }
 
-    public void setNumberTrain(int trainNumber) {
+    public void setNumberTrain(long trainNumber) {
         this.numberTrain = trainNumber;
     }
 
@@ -47,6 +49,7 @@ public class Train implements Serializable {
         this.trainName = trainName;
     }
 
+    @JsonManagedReference
     public List<Schedule> getScheduleList() {
         return scheduleList;
     }
