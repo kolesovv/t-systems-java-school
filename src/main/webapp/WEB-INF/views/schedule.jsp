@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Station list</title>
+    <title>Schedules</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,38 +14,44 @@
 
 <div class="container">
     <h2>SBB</h2>
-    <p>Stations:</p>
+    <p>Schedules:</p>
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"
-            onclick="window.location.href='addStation'; return false">
-        Add station
+            onclick="window.location.href='addSchedule'; return false">
+        Add new schedule
     </button>
 
-    <!-- Station list -->
+    <!-- Schedule list -->
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Station name</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th>id</th>
+            <th>Departure time</th>
+            <th>Arrival time</th>
+            <th>Path</th>
+            <th>Train</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="tempStations" items="${stations}">
-            <c:url var="deleteLink" value="/deleteStation">
-                <c:param name="stationId" value="${tempStations.idStation}"/>
+        <c:forEach var="tempPath" items="${schedule}">
+            <c:url var="deleteLink" value="/">
+                <c:param name="scheduleId" value="${tempPath.id}"/>
             </c:url>
-            <c:url var="updateLink" value="/updateStation">
-                <c:param name="stationId" value="${tempStations.idStation}"/>
+            <c:url var="updateLink" value="/">
+                <c:param name="scheduleId" value="${tempPath.id}"/>
             </c:url>
             <tr>
-                <td>${tempStations.nameStation}</td>
+                <td>${tempPath.id}</td>
+                <td>${tempPath.departureTime}</td>
+                <td>${tempPath.arrivalTime}</td>
+                <td>${tempPath.path}</td>
+                <td>${tempPath.train}</td>
                 <td>
-                    <a href="${updateLink}">update</a>
+                    <a href="">update</a>
                 </td>
                 <td>
-                    <a href="${deleteLink}">delete</a>
+                    <a href="">delete</a>
                 </td>
             </tr>
         </c:forEach>

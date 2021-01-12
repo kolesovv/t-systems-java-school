@@ -1,6 +1,6 @@
 package com.t_systems.sbb.dao;
 
-import com.t_systems.sbb.entity.Station;
+import com.t_systems.sbb.entity.Path;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -10,45 +10,45 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public class StationDAOImpl implements GenericDAO<Station> {
+public class PathDAOImpl implements GenericDAO<Path> {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public Station findById(long id) {
+    public Path findById(long id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Station.class, id);
+        return session.get(Path.class, id);
     }
 
     @Override
-    public Collection<Station> findAll() {
+    public Collection<Path> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        Query<Station>stationQuery = session.createQuery("FROM Station");
-        return stationQuery.getResultList();
+        Query<Path> pathQuery = session.createQuery("FROM Path");
+        return pathQuery.getResultList();
     }
 
     @Override
-    public void create(Station entity) {
+    public void create(Path entity) {
 
     }
 
     @Override
-    public void save(Station entity) {
+    public void save(Path entity) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
     }
 
     @Override
-    public void delete(Station entity) {
+    public void delete(Path entity) {
 
     }
 
     @Override
     public void deleteById(long entityId) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Station>stationQuery = session.createQuery("DELETE FROM Station WHERE id =: stationId");
-        stationQuery.setParameter("stationId", entityId);
-        stationQuery.executeUpdate();
+        Query<Path> pathQuery = session.createQuery("DELETE FROM Path WHERE id=:pathId");
+        pathQuery.setParameter("pathId", entityId);
+        pathQuery.executeUpdate();
     }
 }

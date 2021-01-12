@@ -1,4 +1,4 @@
-package com.t_systems.config;
+package com.t_systems.sbb.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

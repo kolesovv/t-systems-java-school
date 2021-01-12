@@ -1,30 +1,31 @@
 package com.t_systems.sbb.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "station")
-public class Station {
+public class Station implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "station_id")
-    private int idStation;
+    @Column(name = "id")
+    private long idStation;
     @Column(name = "station_name")
     private String nameStation;
 
     public Station() {
     }
 
-    public Station(int id, String name) {
+    public Station(long id, String name) {
         this.idStation = id;
         this.nameStation = name;
     }
 
-    public int getIdStation() {
+    public long getIdStation() {
         return idStation;
     }
 
-    public void setIdStation(int idStation) {
+    public void setIdStation(long idStation) {
         this.idStation = idStation;
     }
 
