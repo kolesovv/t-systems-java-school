@@ -14,7 +14,7 @@ public class StationController {
     @Autowired
     private GenericService<Station> stationGenericService;
 
-    @GetMapping("/")
+    @GetMapping()
     public Collection<Station> listStations(){
         return stationGenericService.findAll();
     }

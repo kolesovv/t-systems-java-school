@@ -1,27 +1,34 @@
 package com.t_systems.sbb.controller;
 
-import com.t_systems.sbb.entity.Path;
 import com.t_systems.sbb.entity.Schedule;
 import com.t_systems.sbb.entity.Train;
 import com.t_systems.sbb.service.GenericService;
+import com.t_systems.sbb.service.TrainSearchService;
+import com.t_systems.sbb.service.TrainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("schedule")
+@RequestMapping("/schedule")
 public class ScheduleController {
-    @Autowired
-    GenericService<Path> pathGenericService;
 
     @Autowired
-    GenericService<Train> trainGenericService;
+    TrainSearchService trainSearchService;
 
     @Autowired
     GenericService<Schedule> scheduleGenericService;
 
-    @GetMapping("/")
+    @GetMapping()
     public Collection<Schedule> listSchedule(){
         return scheduleGenericService.findAll();
     }
@@ -32,7 +39,7 @@ public class ScheduleController {
         scheduleGenericService.save(schedule);
     }
 
-    @PutMapping("/saveSchedule")
+    @PutMapping()
     public void saveSchedule(@RequestBody Schedule schedule){
         scheduleGenericService.save(schedule);
     }
@@ -45,5 +52,16 @@ public class ScheduleController {
     @DeleteMapping("/{id}")
     public void deleteSchedule(@PathVariable("id") long id){
         scheduleGenericService.deleteById(id);
+    }
+
+    @GetMapping("/search-train")
+    public @ResponseBody ModelMap getTrainsByPathAndTime(ModelMap model, HttpServletRequest request) {
+        model.addAttribute("trains",
+                trainSearchService.getTrainsByPathAndTime(
+                        Long.parseLong(request.getParameter("stationIdDeparture")),
+                        Date.valueOf(request.getParameter("departure")),
+                        Long.parseLong(request.getParameter("stationIdArrival")),
+                        Date.valueOf(request.getParameter("arrival"))));
+        return model;
     }
 }
