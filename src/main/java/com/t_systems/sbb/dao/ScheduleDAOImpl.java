@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -64,16 +65,16 @@ public class ScheduleDAOImpl implements GenericDAO<Schedule> {
     public List<Map> getScheduleByPathAndTime(long stationIdDeparture, Date dateDeparture,
                                               long stationIdArrival,Date dateArrival){
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery(
-                "SELECT * FROM" +
-                "(SELECT * FROM schedule WHERE departure_time >=: dateDeparture AND station_id =: stationDeparture) as deparute" +
-                "JOIN" +
-                "(SELECT * FROM schedule WHERE arrival_time <=: dateArrival AND station_id =: stationArrival) as arrival" +
-                "ON" +
-                "deparute.train_id = arrival.train_id");
-
-        query
-                .setParameter("dateDeparture", dateDeparture)
+        Query query = session.createSQLQuery(
+                "SELECT deparute.station_id AS dep, deparute.departure_time AS dep_time,\n" +
+                        "       arrival.station_id AS arr, arrival.arrival_time AS arr_time,\n" +
+                        "       arrival.train_id\n" +
+                        "(SELECT * FROM schedule WHERE departure_time >= :dateDeparture AND station_id = :stationIdDeparture) as deparute\n" +
+                        "JOIN\n" +
+                        "(SELECT * FROM schedule WHERE arrival_time <= :dateArrival AND station_id = :stationIdArrival) as arrival\n" +
+                        "ON\n" +
+                        "(deparute.train_id = arrival.train_id)").
+                setParameter("dateDeparture", dateDeparture)
                 .setParameter("stationIdDeparture", stationIdDeparture)
                 .setParameter("dateArrival", dateArrival)
                 .setParameter("stationIdArrival", stationIdArrival);

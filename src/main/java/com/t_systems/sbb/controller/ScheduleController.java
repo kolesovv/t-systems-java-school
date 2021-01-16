@@ -5,10 +5,14 @@ import com.t_systems.sbb.service.GenericService;
 import com.t_systems.sbb.service.TrainSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.datetime.standard.DateTimeFormatterFactoryBean;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @RestController
@@ -49,15 +53,23 @@ public class ScheduleController {
 
     @GetMapping("/search-trains")
     public ModelMap getTrainsByPathAndTime(@RequestParam("from") Long stationIdDeparture,
-                                           @RequestParam("dep")
-                                           @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureDate,
+                                           @RequestParam("dep") String departureString,
                                            @RequestParam("to") Long stationIdArrival,
-                                           @RequestParam("arr")
-                                           @DateTimeFormat(pattern = "yyyy-MM-dd") Date arrivalDate,
+                                           @RequestParam("arr") String arrivalString,
                                            ModelMap model) {
-        model.addAttribute("trains",
-                trainSearchService.getTrainsByPathAndTime
-                        (stationIdDeparture, departureDate, stationIdArrival, arrivalDate));
-        return model;
+        try {
+            String pattern = "yyyy-MM-dd";
+            java.util.Date departureDate = new SimpleDateFormat(pattern).parse(departureString);
+            java.util.Date arrivalDate = new SimpleDateFormat(pattern).parse(arrivalString);
+            Date departure = new Date(departureDate.getTime());
+            Date arrival = new Date(arrivalDate.getTime());
+            model.addAttribute("trains",
+                    trainSearchService.getTrainsByPathAndTime
+                            (stationIdDeparture, departure, stationIdArrival, arrival));
+            return model;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
