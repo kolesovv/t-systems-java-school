@@ -14,9 +14,8 @@ public class Train implements Serializable {
     private long numberTrain;
     @Column(name = "train_name")
     private String trainName;
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "train_capacity_id")
-    private List<TrainCapacity> trainCapacities;
+    @Column(name = "seats")
+    private long seats;
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "train_has_passenger",
@@ -27,10 +26,9 @@ public class Train implements Serializable {
     public Train() {
     }
 
-    public Train(String trainName, List<TrainCapacity> trainCapacities, Set<Passenger> passengers) {
+    public Train(String trainName, long seats) {
         this.trainName = trainName;
-        this.trainCapacities = trainCapacities;
-        this.passengers = passengers;
+        this.seats = seats;
     }
 
     public Train(String trainName) {
@@ -53,12 +51,12 @@ public class Train implements Serializable {
         this.trainName = trainName;
     }
 
-    public List<TrainCapacity> getTrainCapacities() {
-        return trainCapacities;
+    public long getSeats() {
+        return seats;
     }
 
-    public void setTrainCapacities(List<TrainCapacity> trainCapacities) {
-        this.trainCapacities = trainCapacities;
+    public void setSeats(long seats) {
+        this.seats = seats;
     }
 
     public Set<Passenger> getPassengers() {
@@ -82,7 +80,7 @@ public class Train implements Serializable {
         return "Train{" +
                 "numberTrain=" + numberTrain +
                 ", trainName='" + trainName + '\'' +
-                ", trainCapacities=" + trainCapacities +
+                ", seats=" + seats +
                 ", passengers=" + passengers +
                 '}';
     }

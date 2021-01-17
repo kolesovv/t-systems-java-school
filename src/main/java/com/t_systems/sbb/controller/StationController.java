@@ -4,11 +4,12 @@ import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.exception.NotFoundException;
 import com.t_systems.sbb.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RestController
+@Controller
 @RequestMapping("/station")
 public class StationController {
     @Autowired

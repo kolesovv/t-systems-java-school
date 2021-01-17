@@ -17,3 +17,4 @@ insert into sbb_db.station (id, station_name) values (16, 'Sheksna');
 insert into sbb_db.station (id, station_name) values (17, 'Chebsara');
 insert into sbb_db.station (id, station_name) values (18, 'Kipelovo');
 insert into sbb_db.station (id, station_name) values (19, 'Vologda');
+insert into sbb_db.station (id, station_name) values (20, 'Tver');

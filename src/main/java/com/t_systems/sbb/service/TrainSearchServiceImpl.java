@@ -6,6 +6,7 @@ import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class TrainSearchServiceImpl implements TrainSearchService {
 
     @Autowired

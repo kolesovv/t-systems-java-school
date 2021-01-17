@@ -15,21 +15,42 @@
 
 <div class="container">
     <h2>SBB</h2>
-    <button type="submit" class="btn btn-primary"
-            onclick="window.location.href='list-trains';return false">Back to list</button>
-    <form:form action="saveTrain" modelAttribute="train" method="post" class="was-validated">
-        <form:hidden path="numberTrain"/>
-        <div class="form-group">
-            <label for="trainName">Train name:</label>
-            <form:input path="trainName" type="text" class="form-control" id="trainName"
-                        required="required" placeholder="Train name"
-                        name="trainName"/>
-            <div class="valid-feedback">Valid.</div>
-            <div class="invalid-feedback">Please fill out this field.</div>
+    <button type="submit" class="btn btn-secondary"
+            onclick="window.location.href='admin';return false">Back to list</button>
+    <form:form action="savetrain" modelAttribute="train" method="post">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Train</span>
+            </div>
+            <form:input path="trainName" type="text" class="form-control"/>
+            <div class="input-group-prepend">
+                <span class="input-group-text">Seats</span>
+            </div>
+            <form:input path="seats" type="number" class="form-control"/>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-secondary">Submit</button>
     </form:form>
 </div>
 
 </body>
 </html>
+
+
+
+<%--
+<form:form action="savetrain" modelAttribute="train" method="post" class="was-validated">
+    <form:hidden path="numberTrain"/>
+    <div class="form-group">
+        <label for="trainName">Train name:</label>
+        <form:input path="trainName" type="text" class="form-control" id="trainName"
+                    required="required" placeholder="Train name"
+                    name="trainName"/>
+        <form:input path="seats" type="text" class="form-control" id="seats"
+                    required="required" placeholder="Seats"
+                    name="seats"/>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form:form>
+--%>

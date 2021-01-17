@@ -16,18 +16,15 @@
 <div class="container">
     <h2>SBB</h2>
     <button type="submit" class="btn btn-primary"
-            onclick="window.location.href='list-stations';return false">Back to list</button>
-    <form:form action="saveStation" modelAttribute="station" method="post" class="was-validated">
-        <form:hidden path="idStation"/>
-        <div class="form-group">
-            <label for="stationName">Station name:</label>
-            <form:input path="nameStation" type="text" class="form-control" id="stationName"
-                        required="required" placeholder="Station name"
-                        name="stationName"/>
-            <div class="valid-feedback">Valid.</div>
-            <div class="invalid-feedback">Please fill out this field.</div>
+            onclick="window.location.href='admin';return false">Back to list</button>
+    <form:form action="savestation" modelAttribute="station" method="post">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Station name</span>
+            </div>
+            <form:input path="nameStation" type="text" class="form-control"/>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-secondary">Submit</button>
     </form:form>
 </div>
 

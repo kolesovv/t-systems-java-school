@@ -4,10 +4,12 @@ package com.t_systems.sbb.service;
 import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
 import org.javatuples.Pair;
+import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
 
+@Service
 public interface TrainSearchService {
 
     public List<SpecificTrain> getTrainsByPathAndTime(long stationIdDeparture, Date dateDeparture,
