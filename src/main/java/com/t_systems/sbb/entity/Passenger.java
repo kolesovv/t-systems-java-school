@@ -1,15 +1,18 @@
 package com.t_systems.sbb.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "passenger")
-public class Passenger {
+public class Passenger implements Serializable {
     @Id
     @Column(name = "id")
-    private Integer id;
+    private long id;
 
     @Column(name = "name")
     private String name;
@@ -36,11 +39,11 @@ public class Passenger {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 

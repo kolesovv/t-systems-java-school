@@ -34,13 +34,13 @@ public class ScheduleController {
     @GetMapping(value="/{id}")
     public String getSchedule(@PathVariable int id, Model m){
         Schedule schedule = scheduleService.findById(id);
-        m.addAttribute("schedule",schedule);
+        m.addAttribute("command",schedule);
         return "schedule_edit_form";
     }
 
     @RequestMapping("/form")
     public String showform(Model m){
-        m.addAttribute("schedule", new Schedule());
+        m.addAttribute("command", new Schedule());
         return "schedule_add_form";
     }
 

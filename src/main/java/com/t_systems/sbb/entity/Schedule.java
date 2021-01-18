@@ -60,7 +60,7 @@ public class Schedule implements Serializable {
         this.departureTime = departureTime;
     }
 
-    @JsonBackReference
+    /*@JsonBackReference*/
     public Station getStation() {
         return station;
     }
@@ -69,7 +69,7 @@ public class Schedule implements Serializable {
         this.station = station;
     }
 
-    @JsonBackReference
+    /*@JsonBackReference*/
     public Train getTrain() {
         return train;
     }

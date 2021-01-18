@@ -2,28 +2,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <h1>Edit station</h1>
-<form:form method="POST" action="/sbb_war/schedule">
+<form:form method="POST" action="/sbb_war/passenger">
     <table >
         <tr>
             <td></td>
             <td><form:hidden  path="id" /></td>
         </tr>
         <tr>
-            <td>Station : </td>
-            <td><form:input path="station"/></td>
-            </td>
+            <td>Name : </td>
+            <td><form:input path="name"  /></td>
         </tr>
         <tr>
-            <td>Departure : </td>
-            <td><form:input path="departureTime"/></td>
+            <td>Surname : </td>
+            <td><form:input path="surname"  /></td>
         </tr>
         <tr>
-            <td>Arrival : </td>
-            <td><form:input path="arrivalTime"/></td>
-        </tr>
-        <tr>
-            <td>Train : </td>
-            <td><form:input path="train"/></td>
+            <td>Date of birth : </td>
+            <td><form:input type="date" path="dateOfBirth"  /></td>
         </tr>
         <tr>
             <td> </td>

@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<h1>Stantion List</h1>
+<h1>Station List</h1>
 <table border="2" width="70%" cellpadding="2">
     <tr>
         <th>Name</th>

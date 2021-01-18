@@ -2,7 +2,6 @@ package com.t_systems.sbb.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,7 +15,7 @@ public class Train implements Serializable {
     private String trainName;
     @Column(name = "seats")
     private long seats;
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "train_has_passenger",
             joinColumns =@JoinColumn(name = "train_id"),
@@ -66,14 +65,6 @@ public class Train implements Serializable {
     public void setPassengers(Set<Passenger> passengers) {
         this.passengers = passengers;
     }
-
-    /*public List<Schedule> getScheduleList() {
-        return scheduleList;
-    }
-
-    public void setScheduleList(List<Schedule> scheduleList) {
-        this.scheduleList = scheduleList;
-    }*/
 
     @Override
     public String toString() {
