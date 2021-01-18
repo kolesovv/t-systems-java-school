@@ -19,20 +19,20 @@ public class Schedule implements Serializable {
     private Date departureTime;
 
     @ManyToOne
-    @JoinColumn(name = "path_id")
-    private Path path;
+    @JoinColumn(name = "station_id")
+    private Station station;
 
     @ManyToOne
-    @JoinColumn(name = "train_number")
+    @JoinColumn(name = "train_id")
     private Train train;
 
     public Schedule() {
     }
 
-    public Schedule(Date arrivalTime, Date departureTime, Path path, Train train) {
+    public Schedule(Date arrivalTime, Date departureTime, Station station, Train train) {
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
-        this.path = path;
+        this.station = station;
         this.train = train;
     }
 
@@ -61,12 +61,12 @@ public class Schedule implements Serializable {
     }
 
     @JsonBackReference
-    public Path getPath() {
-        return path;
+    public Station getStation() {
+        return station;
     }
 
-    public void setPath(Path path) {
-        this.path = path;
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     @JsonBackReference
@@ -84,7 +84,7 @@ public class Schedule implements Serializable {
                 "id=" + id +
                 ", arrivalTime=" + arrivalTime +
                 ", departureTime=" + departureTime +
-                ", path=" + path +
+                ", station=" + station +
                 ", train=" + train +
                 '}';
     }

@@ -1,44 +1,55 @@
 package com.t_systems.sbb.controller;
 
 import com.t_systems.sbb.entity.Station;
-import com.t_systems.sbb.exception.NotFoundException;
 import com.t_systems.sbb.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RestController
+@Controller
 @RequestMapping("/station")
 public class StationController {
     @Autowired
     private GenericService<Station> stationGenericService;
 
-    @GetMapping("/")
-    public Collection<Station> listStations(){
-        return stationGenericService.findAll();
+    @GetMapping()
+    public String getStations(Model m) {
+        Collection<Station> stations = stationGenericService.findAll();
+        m.addAttribute("stations", stations);
+        return "stations";
+    }
+
+    @GetMapping(value="/{id}")
+    public String getStation(@PathVariable int id, Model m){
+        Station station=stationGenericService.findById(id);
+        m.addAttribute("command",station);
+        return "station_edit_form";
+    }
+
+    @RequestMapping("/form")
+    public String showform(Model m){
+        m.addAttribute("command", new Station());
+        return "station_add_form";
+    }
+
+    @PostMapping("/new")
+    public String addStation(@ModelAttribute("station")  Station station){
+        stationGenericService.create(station);
+        return "redirect:/station";
     }
 
     @PostMapping()
-    public void addStation(@RequestBody Station station){
-        station.setIdStation(0);
+    public String updateStation(@ModelAttribute("station") Station station){
         stationGenericService.save(station);
+        return "redirect:/station";
     }
 
-    @PutMapping()
-    public void saveStation(@RequestBody Station station){
-        stationGenericService.save(station);
-    }
-
-    @PutMapping("/{id}")
-    public void updateStation(@PathVariable("id") long id, @RequestBody Station station){
-        stationGenericService.findById(id).setNameStation(station.getNameStation());
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteStation(@PathVariable("id") long id){
-        Station station = stationGenericService.findById(id);
-        if (station == null) throw new NotFoundException("Station id not found - " + id);
+    @GetMapping(value="/delete/{id}")
+    public String delete(@PathVariable int id){
         stationGenericService.deleteById(id);
+        return "redirect:/station";
     }
 }

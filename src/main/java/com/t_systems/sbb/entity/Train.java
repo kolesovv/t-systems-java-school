@@ -1,32 +1,34 @@
 package com.t_systems.sbb.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "train")
 public class Train implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "train_id")
+    @Column(name = "id")
     private long numberTrain;
     @Column(name = "train_name")
     private String trainName;
-    @OneToMany(mappedBy = "train", targetEntity = Schedule.class, fetch = FetchType.EAGER,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
-    private List<Schedule> scheduleList;
+    @Column(name = "seats")
+    private long seats;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "train_has_passenger",
+            joinColumns =@JoinColumn(name = "train_id"),
+            inverseJoinColumns = @JoinColumn(name = "passenger_id"))
+    private Set<Passenger> passengers;
 
     public Train() {
     }
 
-    public Train(String trainName, List<Schedule> scheduleList) {
+    public Train(String trainName, long seats) {
         this.trainName = trainName;
-        this.scheduleList = scheduleList;
+        this.seats = seats;
     }
 
     public Train(String trainName) {
@@ -49,30 +51,37 @@ public class Train implements Serializable {
         this.trainName = trainName;
     }
 
-    @JsonManagedReference
-    public List<Schedule> getScheduleList() {
+    public long getSeats() {
+        return seats;
+    }
+
+    public void setSeats(long seats) {
+        this.seats = seats;
+    }
+
+    public Set<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Set<Passenger> passengers) {
+        this.passengers = passengers;
+    }
+
+    /*public List<Schedule> getScheduleList() {
         return scheduleList;
     }
 
     public void setScheduleList(List<Schedule> scheduleList) {
         this.scheduleList = scheduleList;
-    }
-
-    public void addSchedule(Schedule schedule){
-        if(scheduleList == null){
-            scheduleList = new ArrayList<>();
-        }
-
-        scheduleList.add(schedule);
-        schedule.setTrain(this);
-    }
+    }*/
 
     @Override
     public String toString() {
         return "Train{" +
                 "numberTrain=" + numberTrain +
                 ", trainName='" + trainName + '\'' +
-                ", scheduleList=" + scheduleList +
+                ", seats=" + seats +
+                ", passengers=" + passengers +
                 '}';
     }
 }
