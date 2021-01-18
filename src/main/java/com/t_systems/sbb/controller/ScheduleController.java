@@ -2,6 +2,7 @@ package com.t_systems.sbb.controller;
 
 import com.t_systems.sbb.entity.Schedule;
 import com.t_systems.sbb.entity.Station;
+import com.t_systems.sbb.entity.Train;
 import com.t_systems.sbb.service.GenericService;
 import com.t_systems.sbb.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class ScheduleController {
 
     @Autowired
     private GenericService<Station> stationGenericService;
+
+    @Autowired
+    private GenericService<Train> trainGenericService;
 
     @GetMapping()
     public String getSchedule(Model m) {
@@ -62,6 +66,14 @@ public class ScheduleController {
     public String getScheduleByStation(@PathVariable int id, @ModelAttribute("station")Station station, Model m){
         Station currentStation = stationGenericService.findById(id);
         Collection<Schedule> schedules = scheduleService.getScheduleByStation(currentStation.getIdStation());
+        m.addAttribute("schedule",schedules);
+        return "schedules";
+    }
+
+    @GetMapping(value="/train/{id}")
+    public String getScheduleByTrain(@PathVariable int id, @ModelAttribute("train") Train train, Model m){
+        Train currentTrain = trainGenericService.findById(id);
+        Collection<Schedule> schedules = scheduleService.getScheduleByTrain(currentTrain.getNumberTrain());
         m.addAttribute("schedule",schedules);
         return "schedules";
     }

@@ -62,4 +62,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Collection<Schedule> getScheduleByStation(long id) {
         return scheduleDAO.getScheduleByStation(id);
     }
+
+    @Override
+    @Transactional
+    public Collection<Schedule> getScheduleByTrain(long id) {
+        return scheduleDAO.getScheduleByTrain(id);
+    }
 }

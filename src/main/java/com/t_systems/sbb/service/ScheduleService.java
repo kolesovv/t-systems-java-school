@@ -21,4 +21,6 @@ public interface ScheduleService {
     void deleteById(final long id);
 
     Collection<Schedule> getScheduleByStation(long id);
+
+    Collection<Schedule> getScheduleByTrain(long id);
 }

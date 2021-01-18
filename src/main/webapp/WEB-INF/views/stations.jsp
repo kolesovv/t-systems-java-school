@@ -9,12 +9,14 @@
         <th>Name</th>
         <th>Edit</th>
         <th>Delete</th>
+        <th>Find schedules by station</th>
     </tr>
     <c:forEach var="station" items="${stations}">
         <tr>
             <td>${station.nameStation}</td>
             <td><a href="station/${station.idStation}">Edit</a></td>
             <td><a href="station/delete/${station.idStation}">Delete</a></td>
+            <td><a href="schedule/station/${station.idStation}">Find</a></td>
         </tr>
     </c:forEach>
 </table>

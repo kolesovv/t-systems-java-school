@@ -75,6 +75,14 @@ public class ScheduleDAOImpl implements ScheduleDAO {
         return scheduleQuery.getResultList();
     }
 
+    @Override
+    public Collection<Schedule> getScheduleByTrain(long trainId) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Schedule> scheduleQuery = session.createQuery("FROM Schedule WHERE train_id =: trainId");
+        scheduleQuery.setParameter("trainId", trainId);
+        return scheduleQuery.getResultList();
+    }
+
     public List<Map> getScheduleByPathAndTime(long stationIdDeparture, Date dateDeparture,
                                               long stationIdArrival,Date dateArrival){
         Session session = sessionFactory.getCurrentSession();
