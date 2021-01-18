@@ -20,10 +20,10 @@
             <td><fmt:formatDate value="${schedule.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
             <td>${schedule.station.nameStation}</td>
             <td>${schedule.train.trainName}</td>
-            <td><a href="schedule/${schedule.id}">Edit</a></td>
-            <td><a href="schedule/delete/${schedule.id}">Delete</a></td>
+            <td><a href="/sbb_war/schedule/${schedule.id}">Edit</a></td>
+            <td><a href="/sbb_war/schedule/delete/${schedule.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
 <br/>
-<a href="station/form">Add new schedule</a>
+<a href="schedule/form/">Add new schedule</a>
