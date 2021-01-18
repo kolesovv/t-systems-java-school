@@ -7,13 +7,13 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ScheduleDAOImpl implements GenericDAO<Schedule> {
+public class ScheduleDAOImpl implements ScheduleDAO {
 
     @Autowired
     SessionFactory sessionFactory;
@@ -31,8 +31,20 @@ public class ScheduleDAOImpl implements GenericDAO<Schedule> {
         return scheduleQuery.getResultList();
     }
 
+    public void create(Date arr, Date dep, long trainId, long stationId) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Schedule> scheduleQuery = session.createQuery
+                ("INSERT INTO schedule (arrival_time, departure_time, train_id, station_id) " +
+                "values (arr =: arr, dep =: dep, trainId =: trainId, stationId =: stationId)");
+        scheduleQuery.setParameter("arr", arr)
+                        .setParameter("dep", dep)
+                        .setParameter("trainId", trainId)
+                        .setParameter("stationId", stationId);
+        scheduleQuery.executeUpdate();
+    }
+
     @Override
-    public void create(Schedule entity) {
+    public void create(Schedule schedule) {
 
     }
 
@@ -55,9 +67,10 @@ public class ScheduleDAOImpl implements GenericDAO<Schedule> {
         trainQuery.executeUpdate();
     }
 
-    public List<Schedule> getScheduleByStation(long stationId){
+    @Override
+    public Collection<Schedule> getScheduleByStation(long stationId){
         Session session = sessionFactory.getCurrentSession();
-        Query<Schedule> scheduleQuery = session.createQuery("SELECT * FROM Schedule AS s WHERE s.station_id=: stationId");
+        Query<Schedule> scheduleQuery = session.createQuery("FROM Schedule WHERE station_id =: stationId");
         scheduleQuery.setParameter("stationId", stationId);
         return scheduleQuery.getResultList();
     }

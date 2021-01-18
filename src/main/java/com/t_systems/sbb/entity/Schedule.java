@@ -18,11 +18,11 @@ public class Schedule implements Serializable {
     @Column(name = "departure_time")
     private Date departureTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "station_id")
     private Station station;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "train_id")
     private Train train;
 

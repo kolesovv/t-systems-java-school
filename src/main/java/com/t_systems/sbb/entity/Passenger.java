@@ -20,12 +20,6 @@ public class Passenger {
     @Column(name = "date_of_birth")
     private java.sql.Date dateOfBirth;
 
-    @Column(name = "login")
-    private String login;
-
-    @Column(name = "password")
-    private String password;
-
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "train_has_passanger",
@@ -36,12 +30,10 @@ public class Passenger {
     public Passenger() {
     }
 
-    public Passenger(String name, String surname, Date dateOfBirth, String login, String password) {
+    public Passenger(String name, String surname, Date dateOfBirth) {
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
-        this.login = login;
-        this.password = password;
     }
 
     public Integer getId() {
@@ -74,22 +66,6 @@ public class Passenger {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Set<Train> getTrains() {
