@@ -21,7 +21,8 @@ public class Passenger implements Serializable {
     private String surname;
 
     @Column(name = "date_of_birth")
-    private java.sql.Date dateOfBirth;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date dateOfBirth;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

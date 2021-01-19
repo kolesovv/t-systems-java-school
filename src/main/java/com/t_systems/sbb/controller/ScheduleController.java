@@ -31,44 +31,52 @@ public class ScheduleController {
         return "schedules";
     }
 
-    @GetMapping(value="/{id}")
-    public String getSchedule(@PathVariable int id, Model m){
-        Schedule schedule = scheduleService.findById(id);
-        m.addAttribute("command",schedule);
-        return "schedule_edit_form";
-    }
-
-    @RequestMapping("/form")
-    public String showform(Model m){
-        m.addAttribute("command", new Schedule());
-        return "schedule_add_form";
-    }
-
-    @PostMapping("/new")
-    public String addSchedule(@ModelAttribute("schedule") Schedule schedule){
-        scheduleService.create(schedule);
-        return "redirect:/schedule";
-    }
-
-    @PostMapping()
-    public String updateStation(@ModelAttribute("schedule") Schedule schedule){
-        scheduleService.save(schedule);
-        return "redirect:/schedule";
-    }
-
-    @GetMapping(value="/delete/{id}")
-    public String delete(@PathVariable int id){
-        scheduleService.deleteById(id);
-        return "redirect:/schedule";
-    }
+//    @GetMapping(value="/{id}")
+//    public String getSchedule(@PathVariable int id, Model m){
+//        Schedule schedule = scheduleService.findById(id);
+//        m.addAttribute("command",schedule);
+//        return "schedule_edit_form";
+//    }
+//
+//    @RequestMapping("/form")
+//    public String showform(Model m){
+//        m.addAttribute("command", new Schedule());
+//        return "schedule_add_form";
+//    }
+//
+//    @PostMapping("/new")
+//    public String addSchedule(@ModelAttribute("schedule") Schedule schedule){
+//        scheduleService.create(schedule);
+//        return "redirect:/schedule";
+//    }
+//
+//    @PostMapping()
+//    public String updateStation(@ModelAttribute("schedule") Schedule schedule){
+//        scheduleService.save(schedule);
+//        return "redirect:/schedule";
+//    }
+//
+//    @GetMapping(value="/delete/{id}")
+//    public String delete(@PathVariable int id){
+//        scheduleService.deleteById(id);
+//        return "redirect:/schedule";
+//    }
 
     @GetMapping(value="/station/{id}")
-    public String getScheduleByStation(@PathVariable int id, @ModelAttribute("station")Station station, Model m){
-        Station currentStation = stationGenericService.findById(id);
-        Collection<Schedule> schedules = scheduleService.getScheduleByStation(currentStation.getIdStation());
+    public String getScheduleByStation(@PathVariable int id, Model m){
+        Station station = stationGenericService.findById(id);
+        Collection<Schedule> schedules = scheduleService.getScheduleByStation(station.getIdStation());
+        m.addAttribute("station", station);
         m.addAttribute("schedule",schedules);
-        return "schedules";
+        return "station_schedule";
     }
+
+    @RequestMapping("/station/form")
+    public String showStationForm(Model m){
+        m.addAttribute("command", new Schedule());
+        return "station_schedule_add_form";
+    }
+
 
     @GetMapping(value="/train/{id}")
     public String getScheduleByTrain(@PathVariable int id, @ModelAttribute("train") Train train, Model m){

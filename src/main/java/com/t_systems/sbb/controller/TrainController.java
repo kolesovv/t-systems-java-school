@@ -1,6 +1,5 @@
 package com.t_systems.sbb.controller;
 
-import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
 import com.t_systems.sbb.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,8 @@ public class TrainController {
 
     @GetMapping()
     public String getTrains(Model m) {
-        Collection<Train> stations = trainGenericService.findAll();
-        m.addAttribute("trains", stations);
+        Collection<Train> train = trainGenericService.findAll();
+        m.addAttribute("trains", train);
         return "trains";
     }
 
