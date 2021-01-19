@@ -3,6 +3,7 @@ package com.t_systems.sbb.controller;
 import com.t_systems.sbb.entity.Schedule;
 import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
+import com.t_systems.sbb.models.ScheduleModel;
 import com.t_systems.sbb.service.GenericService;
 import com.t_systems.sbb.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping("/schedule")
@@ -50,11 +52,12 @@ public class ScheduleController {
 //        return "redirect:/schedule";
 //    }
 //
-//    @PostMapping()
-//    public String updateStation(@ModelAttribute("schedule") Schedule schedule){
-//        scheduleService.save(schedule);
-//        return "redirect:/schedule";
-//    }
+    @PostMapping("/station/{id}")
+    public String updateStation(@ModelAttribute("schedule") Schedule schedule){
+        scheduleService.save(schedule);
+        return "redirect:/schedule";
+    }
+
 //
 //    @GetMapping(value="/delete/{id}")
 //    public String delete(@PathVariable int id){
@@ -71,17 +74,23 @@ public class ScheduleController {
         return "station_schedule";
     }
 
-    @RequestMapping("/station/form")
-    public String showStationForm(Model m){
-        m.addAttribute("command", new Schedule());
+    @RequestMapping("/station/{id}/form")
+    public String showStationForm(@PathVariable int id, Model m){
+        ScheduleModel scheduleModel = new ScheduleModel(new Schedule());
+        Station station = stationGenericService.findById(id);
+        List<Train> trains = (List<Train>) trainGenericService.findAll();
+        m.addAttribute("command", scheduleModel);
+        m.addAttribute("station", station);
+        m.addAttribute("trains", trains);
         return "station_schedule_add_form";
     }
 
 
     @GetMapping(value="/train/{id}")
-    public String getScheduleByTrain(@PathVariable int id, @ModelAttribute("train") Train train, Model m){
-        Train currentTrain = trainGenericService.findById(id);
-        Collection<Schedule> schedules = scheduleService.getScheduleByTrain(currentTrain.getNumberTrain());
+    public String getScheduleByTrain(@PathVariable int id, Model m){
+        Train train = trainGenericService.findById(id);
+        Collection<Schedule> schedules = scheduleService.getScheduleByTrain(train.getNumberTrain());
+        m.addAttribute("station", schedules);
         m.addAttribute("schedule",schedules);
         return "schedules";
     }
