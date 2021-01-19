@@ -1,6 +1,6 @@
 package com.t_systems.sbb.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,16 +13,18 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "arrival_time")
     private Date arrivalTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "departure_time")
     private Date departureTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "station_id")
     private Station station;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "train_id")
     private Train train;
 
@@ -60,7 +62,7 @@ public class Schedule implements Serializable {
         this.departureTime = departureTime;
     }
 
-    @JsonBackReference
+    /*@JsonBackReference*/
     public Station getStation() {
         return station;
     }
@@ -69,7 +71,7 @@ public class Schedule implements Serializable {
         this.station = station;
     }
 
-    @JsonBackReference
+    /*@JsonBackReference*/
     public Train getTrain() {
         return train;
     }

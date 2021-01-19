@@ -30,7 +30,7 @@ public class StationController {
     }
 
     @RequestMapping("/form")
-    public String showform(Model m){
+    public String showForm(Model m){
         m.addAttribute("command", new Station());
         return "station_add_form";
     }

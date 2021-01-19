@@ -1,15 +1,18 @@
 package com.t_systems.sbb.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "passenger")
-public class Passenger {
+public class Passenger implements Serializable {
     @Id
     @Column(name = "id")
-    private Integer id;
+    private long id;
 
     @Column(name = "name")
     private String name;
@@ -18,13 +21,8 @@ public class Passenger {
     private String surname;
 
     @Column(name = "date_of_birth")
-    private java.sql.Date dateOfBirth;
-
-    @Column(name = "login")
-    private String login;
-
-    @Column(name = "password")
-    private String password;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date dateOfBirth;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -36,19 +34,17 @@ public class Passenger {
     public Passenger() {
     }
 
-    public Passenger(String name, String surname, Date dateOfBirth, String login, String password) {
+    public Passenger(String name, String surname, Date dateOfBirth) {
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
-        this.login = login;
-        this.password = password;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -74,22 +70,6 @@ public class Passenger {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Set<Train> getTrains() {
