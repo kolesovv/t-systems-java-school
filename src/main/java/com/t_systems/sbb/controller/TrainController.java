@@ -1,25 +1,38 @@
 package com.t_systems.sbb.controller;
 
+import com.t_systems.sbb.dto.TrainDTO;
 import com.t_systems.sbb.entity.Train;
 import com.t_systems.sbb.service.GenericService;
+import com.t_systems.sbb.service.TrainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping("/train")
 public class TrainController {
     @Autowired
-    private GenericService<Train> trainGenericService;
+    private TrainServiceImpl trainGenericService;
 
     @GetMapping()
     public String getTrains(Model m) {
         Collection<Train> train = trainGenericService.findAll();
         m.addAttribute("trains", train);
         return "trains";
+    }
+
+    @GetMapping()
+    public ModelAndView getTrains() {
+        List<TrainDTO> trainDTOList = (List<TrainDTO>) trainGenericService.findAllDTO();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("trains");
+        modelAndView.addObject("trainList", trainDTOList);
+        return modelAndView;
     }
 
     @GetMapping(value="/{id}")

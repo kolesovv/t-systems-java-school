@@ -6,7 +6,7 @@
     <table >
         <tr>
             <td></td>
-            <td><form:hidden  path="numberTrain" /></td>
+            <td><form:hidden  path="id" /></td>
         </tr>
         <tr>
             <td>Name : </td>

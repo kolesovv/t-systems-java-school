@@ -2,6 +2,7 @@ package com.t_systems.sbb.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,22 +11,21 @@ public class Train implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long numberTrain;
+    private long id;
     @Column(name = "train_name")
     private String trainName;
     @Column(name = "seats")
-    private long seats;
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "train_has_passenger",
-            joinColumns =@JoinColumn(name = "train_id"),
-            inverseJoinColumns = @JoinColumn(name = "passenger_id"))
-    private Set<Passenger> passengers;
+    private int seats;
+    @OneToMany(mappedBy = "trainTicket", fetch = FetchType.LAZY)
+    private Set<Ticket> tickets;
+    @OneToMany(mappedBy = "train", fetch = FetchType.LAZY)
+    private List<Schedule> schedules;
 
     public Train() {
     }
 
-    public Train(String trainName, long seats) {
+    public Train(long id, String trainName, int seats) {
+        this.id = id;
         this.trainName = trainName;
         this.seats = seats;
     }
@@ -34,12 +34,12 @@ public class Train implements Serializable {
         this.trainName = trainName;
     }
 
-    public long getNumberTrain() {
-        return numberTrain;
+    public long getId() {
+        return id;
     }
 
-    public void setNumberTrain(long trainNumber) {
-        this.numberTrain = trainNumber;
+    public void setId(long trainNumber) {
+        this.id = trainNumber;
     }
 
     public String getTrainName() {
@@ -54,25 +54,34 @@ public class Train implements Serializable {
         return seats;
     }
 
-    public void setSeats(long seats) {
+    public void setSeats(int seats) {
         this.seats = seats;
     }
 
-    public Set<Passenger> getPassengers() {
-        return passengers;
+    public Set<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setPassengers(Set<Passenger> passengers) {
-        this.passengers = passengers;
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
     @Override
     public String toString() {
         return "Train{" +
-                "numberTrain=" + numberTrain +
+                "id=" + id +
                 ", trainName='" + trainName + '\'' +
                 ", seats=" + seats +
-                ", passengers=" + passengers +
+                ", tickets=" + tickets +
+                ", schedules=" + schedules +
                 '}';
     }
 }

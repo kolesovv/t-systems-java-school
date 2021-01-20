@@ -16,7 +16,7 @@
             <td>
                 <form:select name="train" path="trainId">
                     <c:forEach items="${trains}" var="train">
-                        <option value="${train.numberTrain}">${train.trainName}</option>
+                        <option value="${train.id}">${train.trainName}</option>
                     </c:forEach>
                 </form:select>
             </td>
