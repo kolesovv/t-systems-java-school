@@ -17,14 +17,6 @@ import java.util.List;
 public interface TrainMapper {
 
     @Mapping(source = "schedulePath", target = "schedules")
-
-    @Mappings({
-            @Mapping(source = "ticketTrain.number", target = "trainNumber"),
-            @Mapping(source = "passenger.name", target = "passengerName"),
-            @Mapping(source = "passenger.secondName", target = "passengerSecondName"),
-
-    })
-
     Train toEntity (TrainDTO trainDTO);
 
     @Mapping(source = "schedules", target = "schedulePath")

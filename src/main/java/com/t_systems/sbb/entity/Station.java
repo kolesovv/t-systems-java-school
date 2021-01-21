@@ -2,6 +2,7 @@ package com.t_systems.sbb.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "station")
@@ -12,6 +13,8 @@ public class Station implements Serializable {
     private long idStation;
     @Column(name = "station_name")
     private String nameStation;
+    @OneToMany(mappedBy = "station",fetch=FetchType.LAZY)
+    private List<Schedule> stationSchedule;
 
     public Station() {
     }
@@ -35,6 +38,14 @@ public class Station implements Serializable {
 
     public void setNameStation(String nameStation) {
         this.nameStation = nameStation;
+    }
+
+    public List<Schedule> getStationSchedule() {
+        return stationSchedule;
+    }
+
+    public void setStationSchedule(List<Schedule> stationSchedule) {
+        this.stationSchedule = stationSchedule;
     }
 
     @Override
