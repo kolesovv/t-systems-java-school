@@ -11,7 +11,7 @@ public class TrainDTO {
     private String trainName;
     private int seats;
     private Set<Ticket> tickets;
-    private LinkedList<ScheduleDTO> schedulePath;
+    private LinkedList<ScheduleTrainDTO> schedulePath;
 
     public TrainDTO() {
     }
@@ -54,11 +54,11 @@ public class TrainDTO {
         this.tickets = tickets;
     }
 
-    public LinkedList<ScheduleDTO> getSchedulePath() {
+    public LinkedList<ScheduleTrainDTO> getSchedulePath() {
         return schedulePath;
     }
 
-    public void setSchedulePath(LinkedList<ScheduleDTO> schedulePath) {
+    public void setSchedulePath(LinkedList<ScheduleTrainDTO> schedulePath) {
         this.schedulePath = schedulePath;
     }
 

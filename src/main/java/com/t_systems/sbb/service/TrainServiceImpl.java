@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.LinkedList;
 
 @Service
 public class TrainServiceImpl {
@@ -51,7 +52,7 @@ public class TrainServiceImpl {
 
     @Transactional
     public TrainDTO findByIdDTO(long id) {
-        return trainMapper.entityToDTO(trainGenericDAO.findById(id));
+        return trainMapper.toDto(trainGenericDAO.findById(id));
     }
 
     @Transactional
@@ -61,7 +62,8 @@ public class TrainServiceImpl {
 
     @Transactional
     public void save(TrainDTO dto) {
-        Train train = trainMapper.dtoToEntity(dto);
+        Train train = trainMapper.toEntity(dto);
+        train.setSchedules(new LinkedList<>());
         trainGenericDAO.save(train);
     }
 

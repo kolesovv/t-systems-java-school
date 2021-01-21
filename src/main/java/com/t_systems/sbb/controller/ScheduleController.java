@@ -1,3 +1,4 @@
+/*
 package com.t_systems.sbb.controller;
 
 import com.t_systems.sbb.entity.Schedule;
@@ -91,3 +92,4 @@ public class ScheduleController {
         return "schedules";
     }
 }
+*/

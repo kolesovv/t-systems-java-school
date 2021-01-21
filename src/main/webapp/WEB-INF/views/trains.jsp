@@ -19,7 +19,7 @@
 
 <div class="container">
     <div class="row justify-content-md-center">
-        <table class="table table-striped">
+        <table class="table">
             <thead>
             <tr>
                 <th scope="col">Number</th>
@@ -33,16 +33,32 @@
                 <tr>
                     <td>${trainDTO.trainName}</td>
                     <td>${trainDTO.seats}</td>
-                    <td><c:forEach var="route" items="${trainDTO.schedulePath}">
-                        ${route.toString()}<br>
-                    </c:forEach>
+                    <td>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Station</th>
+                                <th scope="col">Departure</th>
+                                <th scope="col">Arrival</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="route" items="${trainDTO.schedulePath}">
+                                <tr>
+                                    <td>${route.stationName}</td>
+                                    <td>${route.departureTime}</td>
+                                    <td>${route.arrivalTime}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
                     </td>
                     <td>
-                        <form action="../train/edit/${trainDTO.id}" method="get">
+                        <form action="${pageContext.request.contextPath}/train/edit/${trainDTO.id}" method="get">
                             <button type="submit" class="btn btn-primary">Edit</button>
                         </form>
                         <br>
-                        <form action="../train/delete/${trainDTO.id}" method="get">
+                        <form action="${pageContext.request.contextPath}/train/delete/${trainDTO.id}" method="get">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>
@@ -50,7 +66,7 @@
             </c:forEach>
             </tbody>
         </table>
-        <a href="train/form"  role="button" class="btn btn-warning">Add new train</a>
+        <a href="${pageContext.request.contextPath}/train/form"  role="button" class="btn btn-warning">Add new train</a>
     </div>
     <%--<a href="/"  role="button" class="btn btn-primary btn-lg">Back to admin page</a>--%>
 </div>

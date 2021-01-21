@@ -1,16 +1,12 @@
 package com.t_systems.sbb.controller;
 
 import com.t_systems.sbb.dto.TrainDTO;
-import com.t_systems.sbb.entity.Train;
-import com.t_systems.sbb.service.GenericService;
 import com.t_systems.sbb.service.TrainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -18,13 +14,6 @@ import java.util.List;
 public class TrainController {
     @Autowired
     private TrainServiceImpl trainGenericService;
-
-    @GetMapping()
-    public String getTrains(Model m) {
-        Collection<Train> train = trainGenericService.findAll();
-        m.addAttribute("trains", train);
-        return "trains";
-    }
 
     @GetMapping()
     public ModelAndView getTrains() {
@@ -35,34 +24,43 @@ public class TrainController {
         return modelAndView;
     }
 
-    @GetMapping(value="/{id}")
-    public String getTrain(@PathVariable int id, Model m){
-        Train train = trainGenericService.findById(id);
-        m.addAttribute("command",train);
-        return "train_edit_form";
+    @GetMapping (value = "/edit/{id}")
+    public ModelAndView getTrain(@PathVariable("id") long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        TrainDTO trainDTO = trainGenericService.findByIdDTO(id);
+        modelAndView.setViewName("train_edit_form");
+        modelAndView.addObject("trainDTO", trainDTO);
+        return modelAndView;
     }
 
-    @RequestMapping("/form")
-    public String showform(Model m){
-        m.addAttribute("command", new Train());
-        return "train_add_form";
+    @GetMapping(value = "/form")
+    public ModelAndView addPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("train_edit_form");
+        return modelAndView;
     }
 
-    @PostMapping("/new")
-    public String addTrain(@ModelAttribute("train") Train train){
-        trainGenericService.create(train);
-        return "redirect:/train";
-    }
+/*    @PostMapping(path = "/add")
+    public ModelAndView createTrain(@ModelAttribute("trainDTO") TrainDTO trainDTO) {
+        trainGenericService.save(trainDTO);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/train");
+        return modelAndView;
+    }*/
 
-    @PostMapping()
-    public String updateTrain(@ModelAttribute("train") Train train){
-        trainGenericService.save(train);
-        return "redirect:/train";
+    @PostMapping(value = "/edit")
+    public ModelAndView updateTrain(@ModelAttribute("trainDTO") TrainDTO trainDTO) {
+        trainGenericService.save(trainDTO);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/train");
+        return modelAndView;
     }
 
     @GetMapping(value="/delete/{id}")
-    public String delete(@PathVariable int id){
-        trainGenericService.deleteById(id);
-        return "redirect:/train";
+    public ModelAndView delete(@PathVariable int id){
+        trainGenericService.deleteByIdDTO(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/train");
+        return modelAndView;
     }
 }
