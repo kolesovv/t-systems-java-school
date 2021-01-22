@@ -1,55 +1,62 @@
 package com.t_systems.sbb.controller;
 
-import com.t_systems.sbb.entity.Station;
-import com.t_systems.sbb.service.GenericService;
+import com.t_systems.sbb.dto.StationDTO;
+import com.t_systems.sbb.service.StationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping("/station")
 public class StationController {
+
     @Autowired
-    private GenericService<Station> stationGenericService;
+    private StationServiceImpl stationGenericService;
 
     @GetMapping()
-    public String getStations(Model m) {
-        Collection<Station> stations = stationGenericService.findAll();
-        m.addAttribute("stations", stations);
-        return "stations";
+    public ModelAndView getStations() {
+        List<StationDTO> stationDTOList = (List<StationDTO>) stationGenericService.findAllDTO();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("stations");
+        modelAndView.addObject("stationList", stationDTOList);
+        return modelAndView;
     }
 
-    @GetMapping(value="/{id}")
-    public String getStation(@PathVariable int id, Model m){
-        Station station=stationGenericService.findById(id);
-        m.addAttribute("command",station);
-        return "station_edit_form";
+    @GetMapping(path = "/edit/{id}")
+    public ModelAndView getStation(@PathVariable("id") long id) {
+        StationDTO stationDTO = stationGenericService.findByIdDTO(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("station_edit_form");
+        modelAndView.addObject("command", stationDTO);
+        return modelAndView;
     }
 
-    @RequestMapping("/form")
-    public String showForm(Model m){
-        m.addAttribute("command", new Station());
-        return "station_add_form";
+    @GetMapping("/form")
+    public ModelAndView showForm() {
+        ModelAndView modelAndView = new ModelAndView();
+        StationDTO station = new StationDTO();
+        station.setId(0);
+        modelAndView.addObject("command", station);
+        modelAndView.setViewName("station_edit_form");
+        return modelAndView;
     }
 
-    @PostMapping("/new")
-    public String addStation(@ModelAttribute("station")  Station station){
-        stationGenericService.create(station);
-        return "redirect:/station";
+    @PostMapping("/save")
+    public ModelAndView updateStation(@ModelAttribute("station") StationDTO stationDTO) {
+        stationGenericService.save(stationDTO);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/station");
+        return modelAndView;
     }
 
-    @PostMapping()
-    public String updateStation(@ModelAttribute("station") Station station){
-        stationGenericService.save(station);
-        return "redirect:/station";
-    }
-
-    @GetMapping(value="/delete/{id}")
-    public String delete(@PathVariable int id){
+    @GetMapping (value = "/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") long id) {
         stationGenericService.deleteById(id);
-        return "redirect:/station";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/station");
+        return modelAndView;
     }
 }

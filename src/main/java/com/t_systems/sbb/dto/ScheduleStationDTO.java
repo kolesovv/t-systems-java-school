@@ -42,10 +42,9 @@ public class ScheduleStationDTO {
 
     @Override
     public String toString() {
-        return "ScheduleStationDTO{" +
-                "trainName='" + trainName + '\'' +
-                ", departure=" + departure +
-                ", arrival=" + arrival +
-                '}';
+        return "Train: " +
+                trainName +
+                " Departure: " + departure +
+                " Arrival: " + arrival;
     }
 }

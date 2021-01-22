@@ -36,19 +36,14 @@ public class TrainController {
     @GetMapping(value = "/form")
     public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
+        TrainDTO train = new TrainDTO();
+        train.setId(0);
         modelAndView.setViewName("train_edit_form");
+        modelAndView.addObject("command", train);
         return modelAndView;
     }
 
-/*    @PostMapping(path = "/add")
-    public ModelAndView createTrain(@ModelAttribute("trainDTO") TrainDTO trainDTO) {
-        trainGenericService.save(trainDTO);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/train");
-        return modelAndView;
-    }*/
-
-    @PostMapping(value = "/edit")
+    @PostMapping(value = "/save")
     public ModelAndView updateTrain(@ModelAttribute("trainDTO") TrainDTO trainDTO) {
         trainGenericService.save(trainDTO);
         ModelAndView modelAndView = new ModelAndView();

@@ -5,6 +5,7 @@ import com.t_systems.sbb.dto.StationDTO;
 import com.t_systems.sbb.entity.Schedule;
 import com.t_systems.sbb.entity.Station;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -14,7 +15,7 @@ import java.util.List;
 public interface StationMapper {
 
     Station toEntity (StationDTO stationDTO);
-
+    @Mapping(source = "stationSchedule", target = "scheduleStationDTOS")
     StationDTO toDto (Station station);
 
     List<StationDTO> toDto (Collection<Station> entity);

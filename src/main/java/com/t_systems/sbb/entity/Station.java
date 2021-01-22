@@ -10,7 +10,7 @@ public class Station implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long idStation;
+    private long id;
     @Column(name = "station_name")
     private String nameStation;
     @OneToMany(mappedBy = "station",fetch=FetchType.LAZY)
@@ -20,16 +20,16 @@ public class Station implements Serializable {
     }
 
     public Station(long id, String name) {
-        this.idStation = id;
+        this.id = id;
         this.nameStation = name;
     }
 
     public long getIdStation() {
-        return idStation;
+        return id;
     }
 
     public void setIdStation(long idStation) {
-        this.idStation = idStation;
+        this.id = idStation;
     }
 
     public String getNameStation() {
@@ -51,7 +51,7 @@ public class Station implements Serializable {
     @Override
     public String toString() {
         return "Station{" +
-                "id=" + idStation +
+                "id=" + id +
                 ", name='" + nameStation + '\'' +
                 '}';
     }
