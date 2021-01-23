@@ -18,8 +18,8 @@
         <tr>
             <td><fmt:formatDate value="${schedule.departureTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
             <td><fmt:formatDate value="${schedule.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
-            <td>${schedule.station.nameStation}</td>
-            <td>${schedule.train.trainName}</td>
+            <td>${schedule.stationId.nameStation}</td>
+            <td>${schedule.trainId.trainName}</td>
             <td><a href="/sbb_war/schedule/${schedule.id}">Edit</a></td>
             <td><a href="/sbb_war/schedule/delete/${schedule.id}">Delete</a></td>
         </tr>

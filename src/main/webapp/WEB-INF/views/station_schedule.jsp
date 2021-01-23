@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<h1>${station.nameStation}</h1>
+<h1>${stationSchedule.station.nameStation}</h1>
 <h2>Train schedule</h2>
 <table border="2" width="70%" cellpadding="2">
     <tr>
@@ -14,11 +14,11 @@
         <th>Edit</th>
         <th>Delete</th>
     </tr>
-    <c:forEach var="schedule" items="${schedule}">
+    <c:forEach var="stationScheduleItem" items="${stationSchedule.scheduleItemList}">
         <tr>
-            <td>${schedule.train.trainName}</td>
-            <td><fmt:formatDate value="${schedule.departureTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
-            <td><fmt:formatDate value="${schedule.arrivalTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
+            <td>${stationScheduleItem.train.trainName}</td>
+            <td><fmt:formatDate value="${stationScheduleItem.departureTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
+            <td><fmt:formatDate value="${stationScheduleItem.arrivalTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
             <td><a href="/sbb_war/schedule/${schedule.id}">Edit</a></td>
             <td><a href="/sbb_war/schedule/delete/${schedule.id}">Delete</a></td>
         </tr>
