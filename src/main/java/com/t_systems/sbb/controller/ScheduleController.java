@@ -76,9 +76,12 @@ public class ScheduleController {
 
     @RequestMapping("station/{id}/form")
     public String showStationForm(Model m, @PathVariable long id){
+        Schedule schedule = new Schedule();
+        Station station = stationService.findById(id);
+        schedule.setStation(station);
         m.addAttribute("trains", trainGenericService.findAll());
-        m.addAttribute("station", stationService.findById(id));
-        m.addAttribute("command", new Schedule());
+        m.addAttribute("station", station);
+        m.addAttribute("command", schedule);
         return "station_schedule_add_form";
     }
 

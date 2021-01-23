@@ -6,18 +6,17 @@
 <form:form method="POST" action="/sbb/schedule/station">
     <table >
         <tr>
-            <td><form:hidden value="${station}" path="station"/></td>
+            <td><form:hidden value="${station.idStation}" name="name" path="station.idStation"/></td>
             <td>Departure time : </td>
-            <td><form:input type="text" path="departureTime"  /></td>
+            <td><form:input type="text" path="departureTime" placeholder="2021-01-01 01:00:00.0"/></td>
             <td>Arrival time : </td>
-            <td><form:input type="text" path="arrivalTime"  /></td>
+            <td><form:input type="text" path="arrivalTime" placeholder="2021-01-01 01:00:00.0"/></td>
             <td>Train</td>
             <td>
-                <form:select name="train" path="train">
-                    <%--<c:forEach var="train" items="${trains}">--%>
-                        <form:option value="NONE"> --SELECT--</form:option>
-                        <form:options items="${trains}"></form:options>
-                    <%--</c:forEach>--%>
+                <form:select path="train.numberTrain" name="trainId"  id="train">
+                    <c:forEach var="train" items="${trains}">
+                        <option value="${train.numberTrain}">${train.trainName}</option>
+                    </c:forEach>
                 </form:select>
             </td>
             <td></td>
