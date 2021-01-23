@@ -10,7 +10,7 @@
         <th>Number of seats</th>
         <th>Edit</th>
         <th>Delete</th>
-        <th>Find schedules by train</th>
+        <th>Schedule</th>
     </tr>
     <c:forEach var="train" items="${trains}">
         <tr>
@@ -18,7 +18,7 @@
             <td>${train.seats}</td>
             <td><a href="train/${train.numberTrain}">Edit</a></td>
             <td><a href="train/delete/${train.numberTrain}">Delete</a></td>
-            <td><a href="schedule/train/${train.numberTrain}">Find</a></td>
+            <td><a href="schedule/train/${train.numberTrain}">Go</a></td>
         </tr>
     </c:forEach>
 </table>
