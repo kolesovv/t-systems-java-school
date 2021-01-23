@@ -3,9 +3,10 @@
 
 <h1>${station.nameStation}</h1>
 <h2>Add schedule for current station</h2>
-<form:form method="POST" action="../schedule/station">
+<form:form method="POST" action="/sbb/schedule/station">
     <table >
         <tr>
+            <td><form:hidden value="${station}" path="station"/></td>
             <td>Departure time : </td>
             <td><form:input type="text" path="departureTime"  /></td>
             <td>Arrival time : </td>
@@ -13,9 +14,10 @@
             <td>Train</td>
             <td>
                 <form:select name="train" path="train">
-                    <c:forEach var="train" items="${trains}">
-                        <option value="${train.numberTrain}">${train.trainName}</option>
-                    </c:forEach>
+                    <%--<c:forEach var="train" items="${trains}">--%>
+                        <form:option value="NONE"> --SELECT--</form:option>
+                        <form:options items="${trains}"></form:options>
+                    <%--</c:forEach>--%>
                 </form:select>
             </td>
             <td></td>

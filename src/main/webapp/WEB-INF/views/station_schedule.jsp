@@ -25,4 +25,4 @@
     </c:forEach>
 </table>
 <br/>
-<a href="schedule/${stationSchedule.station.idStation}/form">Add new schedule</a>
+<a href="../station/${stationSchedule.station.idStation}/form">Add new schedule</a>

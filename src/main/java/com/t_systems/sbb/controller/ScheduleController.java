@@ -7,7 +7,6 @@ import com.t_systems.sbb.model.StationSchedule;
 import com.t_systems.sbb.service.GenericService;
 import com.t_systems.sbb.service.ScheduleService;
 import com.t_systems.sbb.service.StationScheduleService;
-import com.t_systems.sbb.service.StationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,7 +74,7 @@ public class ScheduleController {
         return "station_schedule";
     }
 
-    @RequestMapping("/{id}/form")
+    @RequestMapping("station/{id}/form")
     public String showStationForm(Model m, @PathVariable long id){
         m.addAttribute("trains", trainGenericService.findAll());
         m.addAttribute("station", stationService.findById(id));
