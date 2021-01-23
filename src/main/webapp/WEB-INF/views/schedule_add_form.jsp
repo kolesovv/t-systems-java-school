@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <h1>Add new schedule</h1>
-<form:form method="POST" action="/sbb_war/schedule">
+<form:form method="POST" action="../schedule/">
     <table >
         <tr>
             <td>Station : </td>

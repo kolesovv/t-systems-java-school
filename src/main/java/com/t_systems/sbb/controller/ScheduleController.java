@@ -7,6 +7,7 @@ import com.t_systems.sbb.model.StationSchedule;
 import com.t_systems.sbb.service.GenericService;
 import com.t_systems.sbb.service.ScheduleService;
 import com.t_systems.sbb.service.StationScheduleService;
+import com.t_systems.sbb.service.StationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ public class ScheduleController {
 
     @Autowired
     private StationScheduleService stationScheduleService;
+
+    @Autowired
+    private GenericService<Station> stationService;
 
     @Autowired
     private GenericService<Train> trainGenericService;
@@ -52,11 +56,11 @@ public class ScheduleController {
 //        return "redirect:/schedule";
 //    }
 //
-//    @PostMapping()
-//    public String updateStation(@ModelAttribute("schedule") Schedule schedule){
-//        scheduleService.save(schedule);
-//        return "redirect:/schedule";
-//    }
+    @PostMapping("/station")
+    public String updateStation(@ModelAttribute("schedule") Schedule schedule){
+        scheduleService.save(schedule);
+        return "redirect:/schedule";
+    }
 //
 //    @GetMapping(value="/delete/{id}")
 //    public String delete(@PathVariable int id){
@@ -71,8 +75,10 @@ public class ScheduleController {
         return "station_schedule";
     }
 
-    @RequestMapping("/station/form")
-    public String showStationForm(Model m){
+    @RequestMapping("/{id}/form")
+    public String showStationForm(Model m, @PathVariable long id){
+        m.addAttribute("trains", trainGenericService.findAll());
+        m.addAttribute("station", stationService.findById(id));
         m.addAttribute("command", new Schedule());
         return "station_schedule_add_form";
     }

@@ -46,7 +46,7 @@
                     </form>
                 </td>
                 <td>
-                    <form action="station/${station.idStation}">
+                    <form action="schedule/station/${station.idStation}">
                         <button type="submit" class="btn btn-info">Go</button>
                     </form>
                 </td>

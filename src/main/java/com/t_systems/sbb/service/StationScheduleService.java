@@ -25,6 +25,9 @@ public class StationScheduleService {
     @Autowired
     StationDAOImpl stationDAO;
 
+    @Autowired
+    TrainDAOImpl trainDAO;
+
     @Transactional
     public StationSchedule getStationSchedule(long stationId){
         Station station = stationDAO.findById(stationId);
@@ -36,5 +39,10 @@ public class StationScheduleService {
             scheduleItemList.add(scheduleItem);
         }
         return new StationSchedule(station, scheduleItemList);
+    }
+
+    @Transactional
+    public void saveStationSchedule(Schedule schedule){
+        scheduleDAO.save(schedule);
     }
 }

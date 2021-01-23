@@ -1,6 +1,8 @@
 package com.t_systems.sbb.service;
 
 import com.t_systems.sbb.dao.ScheduleDAO;
+import com.t_systems.sbb.dao.StationDAOImpl;
+import com.t_systems.sbb.dao.TrainDAOImpl;
 import com.t_systems.sbb.entity.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
     ScheduleDAO scheduleDAO;
+
+    @Autowired
+    TrainDAOImpl trainDAO;
+
+    @Autowired
+    StationDAOImpl stationDAO;
 
     @Override
     @Transactional
@@ -29,8 +37,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     @Transactional
-    public void create(Date arr, Date dep, long trainId, long stationId) {
-        scheduleDAO.create(arr, dep, trainId, stationId);
+    public void create(Date arrivalTime, Date departureTime, long trainId, long stationId) {
+
     }
 
     @Override
