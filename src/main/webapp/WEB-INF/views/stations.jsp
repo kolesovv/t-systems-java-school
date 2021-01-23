@@ -3,22 +3,58 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<h1>Station List</h1>
-<table border="2" width="70%" cellpadding="2">
-    <tr>
-        <th>Name</th>
-        <th>Edit</th>
-        <th>Delete</th>
-        <th>Schedule</th>
-    </tr>
-    <c:forEach var="station" items="${stations}">
+<head>
+    <title>Stations</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Stations List</h2>
+    <td>
+        <form action="station/form">
+            <button type="submit" class="btn btn-link">Add new station</button>
+        </form>
+    </td>
+    <%--<p>The .table-striped class adds zebra-stripes to a table:</p>--%>
+    <table class="table table-sm">
+        <thead>
         <tr>
-            <td>${station.nameStation}</td>
-            <td><a href="station/${station.idStation}">Edit</a></td>
-            <td><a href="station/delete/${station.idStation}">Delete</a></td>
-            <td><a href="schedule/station/${station.idStation}">Go</a></td>
+            <th>Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Schedule</th>
         </tr>
-    </c:forEach>
-</table>
-<br/>
-<a href="station/form">Add new station</a>
+        </thead>
+        <tbody>
+        <c:forEach var="station" items="${stations}">
+            <tr>
+                <td>${station.nameStation}</td>
+                <td>
+                    <form action="station/${station.idStation}">
+                        <button type="submit" class="btn btn-light">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="station/delete/${station.idStation}">
+                        <button type="submit" class="btn btn-warning">Delete</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="station/${station.idStation}">
+                        <button type="submit" class="btn btn-info">Go</button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

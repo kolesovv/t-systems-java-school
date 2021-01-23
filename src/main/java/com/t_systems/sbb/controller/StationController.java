@@ -24,7 +24,7 @@ public class StationController {
 
     @GetMapping(value="/{id}")
     public String getStation(@PathVariable int id, Model m){
-        Station station=stationGenericService.findById(id);
+        Station station = stationGenericService.findById(id);
         m.addAttribute("command",station);
         return "station_edit_form";
     }

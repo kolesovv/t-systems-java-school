@@ -3,24 +3,60 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<h1>Train List</h1>
-<table border="2" width="70%" cellpadding="2">
-    <tr>
-        <th>Name</th>
-        <th>Number of seats</th>
-        <th>Edit</th>
-        <th>Delete</th>
-        <th>Schedule</th>
-    </tr>
-    <c:forEach var="train" items="${trains}">
+<head>
+    <title>Trains</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Trains List</h2>
+    <td>
+        <form action="train/form">
+            <button type="submit" class="btn btn-link">Add new train</button>
+        </form>
+    </td>
+    <%--<p>The .table-striped class adds zebra-stripes to a table:</p>--%>
+    <table class="table table-sm">
+        <thead>
         <tr>
-            <td>${train.trainName}</td>
-            <td>${train.seats}</td>
-            <td><a href="train/${train.numberTrain}">Edit</a></td>
-            <td><a href="train/delete/${train.numberTrain}">Delete</a></td>
-            <td><a href="schedule/train/${train.numberTrain}">Go</a></td>
+            <th>Name</th>
+            <th>Number of seats</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Schedule</th>
         </tr>
-    </c:forEach>
-</table>
-<br/>
-<a href="train/form">Add new train</a>
+        </thead>
+        <tbody>
+        <c:forEach var="train" items="${trains}">
+            <tr>
+                <td>${train.trainName}</td>
+                <td>${train.seats}</td>
+                <td>
+                    <form action="train/${train.numberTrain}">
+                        <button type="submit" class="btn btn-light">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="train/delete/${train.numberTrain}">
+                        <button type="submit" class="btn btn-warning">Delete</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="schedule/train/${train.numberTrain}">
+                        <button type="submit" class="btn btn-info">Go</button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

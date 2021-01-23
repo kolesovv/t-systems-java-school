@@ -67,7 +67,7 @@ public class Schedule implements Serializable {
         return station;
     }
 
-    public void setStationId(Station station) {
+    public void setStation(Station station) {
         this.station = station;
     }
 

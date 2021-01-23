@@ -11,6 +11,7 @@ import com.t_systems.sbb.model.StationScheduleItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +25,7 @@ public class StationScheduleService {
     @Autowired
     StationDAOImpl stationDAO;
 
+    @Transactional
     public StationSchedule getStationSchedule(long stationId){
         Station station = stationDAO.findById(stationId);
         Collection<Schedule> scheduleCollection = scheduleDAO.getScheduleByStation(stationId);
