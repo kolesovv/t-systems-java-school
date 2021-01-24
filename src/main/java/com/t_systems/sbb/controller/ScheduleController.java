@@ -3,13 +3,16 @@ package com.t_systems.sbb.controller;
 import com.t_systems.sbb.entity.Schedule;
 import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
+import com.t_systems.sbb.model.ScheduleModel;
 import com.t_systems.sbb.model.StationSchedule;
 import com.t_systems.sbb.service.GenericService;
-import com.t_systems.sbb.service.ScheduleService;
+import com.t_systems.sbb.service.ScheduleServiceImpl;
 import com.t_systems.sbb.service.StationScheduleService;
+import com.t_systems.sbb.service.TrainSearchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -18,7 +21,7 @@ import java.util.Collection;
 @RequestMapping("/schedule")
 public class ScheduleController {
     @Autowired
-    private ScheduleService scheduleService;
+    private ScheduleServiceImpl scheduleService;
 
     @Autowired
     private StationScheduleService stationScheduleService;
@@ -28,6 +31,9 @@ public class ScheduleController {
 
     @Autowired
     private GenericService<Train> trainGenericService;
+
+    @Autowired
+    private TrainSearchServiceImpl trainSearchService;
 
     @GetMapping()
     public String getSchedule(Model m) {
@@ -92,5 +98,18 @@ public class ScheduleController {
         Collection<Schedule> schedules = scheduleService.getScheduleByTrain(currentTrain.getNumberTrain());
         m.addAttribute("schedule",schedules);
         return "schedules";
+    }
+
+    @RequestMapping("/search")
+    public String searchTrainsByRouteAndTime(ModelMap m){
+        m.addAttribute("stations", stationService.findAll());
+        m.addAttribute("scheduleModel", new ScheduleModel());
+        return "schedule_search";
+    }
+
+    @GetMapping("/search/get")
+    public String getTrainsByRouteAndTime(@ModelAttribute("schedule") ScheduleModel schedule){
+
+        return "redirect:/schedule";
     }
 }

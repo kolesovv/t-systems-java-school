@@ -8,14 +8,18 @@ import java.util.Date;
 public class ScheduleModel {
     private Date arrivalTime;
     private Date departureTime;
-    private Station station;
-    private Train train;
+    private Station stationArrival;
+    private Station stationDeparture;
 
-    public ScheduleModel(Date arrivalTime, Date departureTime, Station station, Train train) {
+    public ScheduleModel(Date arrivalTime, Date departureTime, Station stationArrival, Station stationDeparture) {
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
-        this.station = station;
-        this.train = train;
+        this.stationArrival = stationArrival;
+        this.stationDeparture = stationDeparture;
+    }
+
+    public ScheduleModel() {
+
     }
 
     public Date getArrivalTime() {
@@ -34,19 +38,19 @@ public class ScheduleModel {
         this.departureTime = departureTime;
     }
 
-    public Station getStation() {
-        return station;
+    public Station getStationArrival() {
+        return stationArrival;
     }
 
-    public void setStation(Station station) {
-        this.station = station;
+    public void setStationArrival(Station stationArrival) {
+        this.stationArrival = stationArrival;
     }
 
-    public Train getTrain() {
-        return train;
+    public Station getStationDeparture() {
+        return stationDeparture;
     }
 
-    public void setTrain(Train train) {
-        this.train = train;
+    public void setStationDeparture(Station stationDeparture) {
+        this.stationDeparture = stationDeparture;
     }
 }

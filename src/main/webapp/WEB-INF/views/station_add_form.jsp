@@ -12,8 +12,9 @@
 </head>
 <body>
 
-<div class="container">
-    <h2>Add new station</h2>
+<br class="container">
+    <h2>Find the train</h2>
+    <br></br>
     <%--<p>The .table-striped class adds zebra-stripes to a table:</p>--%>
     <form:form method="POST" action="../station/">
         <table >

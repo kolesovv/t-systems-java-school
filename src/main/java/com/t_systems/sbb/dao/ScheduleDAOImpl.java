@@ -1,30 +1,31 @@
 package com.t_systems.sbb.dao;
 
 import com.t_systems.sbb.entity.Schedule;
+import com.t_systems.sbb.model.ScheduleModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ScheduleDAOImpl implements ScheduleDAO {
+public class ScheduleDAOImpl {
 
     @Autowired
     SessionFactory sessionFactory;
 
-    @Override
+    /*@Override*/
     public Schedule findById(long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Schedule.class, id);
     }
 
-    @Override
+    /*@Override*/
     public List<Schedule> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> scheduleQuery = session.createQuery("FROM Schedule");
@@ -43,23 +44,23 @@ public class ScheduleDAOImpl implements ScheduleDAO {
         scheduleQuery.executeUpdate();
     }
 
-    @Override
+    /*@Override*/
     public void create(Schedule schedule) {
 
     }
 
-    @Override
+    /*@Override*/
     public void save(Schedule entity) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
     }
 
-    @Override
+    /*@Override*/
     public void delete(Schedule entity) {
 
     }
 
-    @Override
+    /*@Override*/
     public void deleteById(long entityId) {
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> trainQuery = session.createQuery("DELETE FROM Schedule WHERE id=: scheduleId");
@@ -67,7 +68,7 @@ public class ScheduleDAOImpl implements ScheduleDAO {
         trainQuery.executeUpdate();
     }
 
-    @Override
+    /*@Override*/
     public Collection<Schedule> getScheduleByStation(long stationId){
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> scheduleQuery = session.createQuery("FROM Schedule WHERE station_id =: stationId");
@@ -75,7 +76,7 @@ public class ScheduleDAOImpl implements ScheduleDAO {
         return scheduleQuery.getResultList();
     }
 
-    @Override
+    /*@Override*/
     public Collection<Schedule> getScheduleByTrain(long trainId) {
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> scheduleQuery = session.createQuery("FROM Schedule WHERE train_id =: trainId");
@@ -84,7 +85,7 @@ public class ScheduleDAOImpl implements ScheduleDAO {
     }
 
     public List<Map> getScheduleByPathAndTime(long stationIdDeparture, Date dateDeparture,
-                                              long stationIdArrival,Date dateArrival){
+                                              long stationIdArrival, Date dateArrival){
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createSQLQuery(
                 "SELECT deparute.station_id AS dep, deparute.departure_time AS dep_time,\n" +
