@@ -19,9 +19,16 @@
     <h1>${stationSchedule.station.nameStation}</h1>
     <h2>Train schedule</h2>
     <td>
-        <form action="../station/${stationSchedule.station.idStation}/form">
-            <button type="submit" class="btn btn-light">Add new schedule</button>
-        </form>
+        <th>
+            <form action="../station/${stationSchedule.station.idStation}/form">
+                <button type="submit" class="btn btn-light">Add new schedule</button>
+            </form>
+        </th>
+        <th>
+            <form action="/sbb">
+                <button type="submit" class="btn btn-light">Back to admin page</button>
+            </form>
+        </th>
     </td>
     <title></title>
     <%--<p>The .table-striped class adds zebra-stripes to a table:</p>--%>

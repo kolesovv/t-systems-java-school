@@ -2,6 +2,8 @@ package com.t_systems.sbb.service;
 
 import com.t_systems.sbb.dao.GenericDAO;
 import com.t_systems.sbb.dao.ScheduleDAOImpl;
+import com.t_systems.sbb.dao.TrainDAOImpl;
+import com.t_systems.sbb.entity.Passenger;
 import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,10 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Service
-public class TrainServiceImpl implements GenericService<Train> {
+public class TrainServiceImpl {
 
     @Autowired
-    private GenericDAO<Train> trainGenericDAO;
+    private TrainDAOImpl trainGenericDAO;
 
     @Autowired
     private ScheduleDAOImpl scheduleDAO;
@@ -50,6 +52,11 @@ public class TrainServiceImpl implements GenericService<Train> {
     @Transactional
     public void deleteById(long entityId) {
         trainGenericDAO.deleteById(entityId);
+    }
+
+    @Transactional
+    public Collection<Passenger> getPassengersByTrainId(long trainId){
+        return trainGenericDAO.getPassengersByTrainId(trainId);
     }
 
 }

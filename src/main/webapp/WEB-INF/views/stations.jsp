@@ -17,9 +17,16 @@
 <div class="container">
     <h2>Stations List</h2>
     <td>
-        <form action="station/form">
-            <button type="submit" class="btn btn-dark">Add new station</button>
-        </form>
+        <th>
+            <form action="station/form">
+                <button type="submit" class="btn btn-light">Add new station</button>
+            </form>
+        </th>
+        <th>
+            <form action="/sbb">
+                <button type="submit" class="btn btn-light">Back to admin page</button>
+            </form>
+        </th>
     </td>
     <title></title>
     <%--<p>The .table-striped class adds zebra-stripes to a table:</p>--%>

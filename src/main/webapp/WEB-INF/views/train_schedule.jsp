@@ -22,9 +22,16 @@
        Passengers on board: ${trainSchedule.train.passengers.size()}</p>
     <h2>Stations schedule</h2>
     <td>
-        <form action="../train/${trainSchedule.train.numberTrain}/form">
-            <button type="submit" class="btn btn-light">Add new schedule</button>
-        </form>
+        <th>
+            <form action="../train/${trainSchedule.train.numberTrain}/form">
+                <button type="submit" class="btn btn-light">Add new schedule</button>
+            </form>
+        </th>
+        <th>
+            <form action="/sbb">
+                <button type="submit" class="btn btn-light">Back to admin page</button>
+            </form>
+        </th>
     </td>
     <%--<p>The .table-striped class adds zebra-stripes to a table:</p>--%>
     <table class="table table-sm">

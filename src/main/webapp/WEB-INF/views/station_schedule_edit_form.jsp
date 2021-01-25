@@ -33,7 +33,7 @@
                     </form:select>
                 </td>
                 <td></td>
-                <td><button type="submit" class="btn btn-light">Create</button></td>
+                <td><button type="submit" class="btn btn-light">Save</button></td>
             </tr>
         </table>
     </form:form>

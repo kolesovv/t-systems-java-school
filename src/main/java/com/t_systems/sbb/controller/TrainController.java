@@ -1,7 +1,9 @@
 package com.t_systems.sbb.controller;
 
+import com.t_systems.sbb.entity.Passenger;
 import com.t_systems.sbb.entity.Train;
 import com.t_systems.sbb.service.GenericService;
+import com.t_systems.sbb.service.TrainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,7 @@ import java.util.Collection;
 @RequestMapping("/train")
 public class TrainController {
     @Autowired
-    private GenericService<Train> trainGenericService;
+    private TrainServiceImpl trainGenericService;
 
     @GetMapping()
     public String getTrains(Model m) {
@@ -51,5 +53,13 @@ public class TrainController {
     public String delete(@PathVariable int id){
         trainGenericService.deleteById(id);
         return "redirect:/train";
+    }
+
+    @GetMapping("/{id}/passengers")
+    public String getPassengers(@PathVariable int id, Model m) {
+        Collection<Passenger> passengers = trainGenericService.getPassengersByTrainId(id);
+        m.addAttribute("command", trainGenericService.findById(id));
+        m.addAttribute("passengers", passengers);
+        return "train_passengers";
     }
 }
