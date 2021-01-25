@@ -35,7 +35,9 @@
                         <button type="submit" class="btn btn-light">Show users</button>
                     </form>
                 </th>
-                <th>Schedule</th>
+                <th>
+
+                </th>
             </tr>
             </thead>
         </table>

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,8 +43,10 @@ public class TrainScheduleController {
     @RequestMapping("/{id}/form")
     public String showTrainScheduleForm(@PathVariable long id, Model m) {
         Collection<Station> stations = stationGenericService.findAll();
+        ScheduleItem scheduleItem = new ScheduleItem();
+        scheduleItem.setId(0);
         m.addAttribute("stations", stations);
-        m.addAttribute("command", new ScheduleItem());
+        m.addAttribute("command", scheduleItem);
         return "train_schedule_add_form";
     }
 
@@ -71,7 +72,9 @@ public class TrainScheduleController {
         }
         Train train = trainSchedule.getTrain();
         Station station = stationMap.get(scheduleItem.getItemId());
-        Schedule schedule = new Schedule(new Date(), new Date(), station, train);
+        Schedule schedule = new Schedule(scheduleItem.getDepartureTime(),
+                                         scheduleItem.getArrivalTime(),
+                                         station, train);
         scheduleService.save(schedule);
         status.setComplete();
         return "redirect:/schedule/train/" + train.getNumberTrain();

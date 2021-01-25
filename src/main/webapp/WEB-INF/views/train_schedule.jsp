@@ -45,12 +45,12 @@
             <td><fmt:formatDate value="${trainScheduleItem.departureTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
             <td><fmt:formatDate value="${trainScheduleItem.arrivalTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
             <td>
-                <form action="../station/${trainScheduleItem.id}">
+                <form action="../train/${trainScheduleItem.id}/edit">
                     <button type="submit" class="btn btn-light">Edit</button>
                 </form>
             </td>
             <td>
-                <form action="../station/delete/${trainScheduleItem.id}">
+                <form action="../train/delete/${trainScheduleItem.id}">
                     <button type="submit" class="btn btn-warning">Delete</button>
                 </form>
             </td>
