@@ -4,7 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "schedule")
@@ -13,10 +13,8 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "arrival_time")
     private Date arrivalTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "departure_time")
     private Date departureTime;
 

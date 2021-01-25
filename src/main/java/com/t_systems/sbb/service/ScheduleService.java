@@ -10,7 +10,7 @@ public interface ScheduleService {
 
     Collection<Schedule> findAll();
 
-    void create(Date arr, Date dep, long trainId, long stationId);
+    void create(Date arrival, Date departure, long trainId, long stationId);
 
     void create(final Schedule schedule);
 
@@ -19,8 +19,4 @@ public interface ScheduleService {
     void delete(final Schedule schedule);
 
     void deleteById(final long id);
-
-    Collection<Schedule> getScheduleByStation(long id);
-
-    Collection<Schedule> getScheduleByTrain(long id);
 }

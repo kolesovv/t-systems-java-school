@@ -16,8 +16,8 @@
     </tr>
     <c:forEach var="schedule" items="${schedule}">
         <tr>
-            <td><fmt:formatDate value="${schedule.departureTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
-            <td><fmt:formatDate value="${schedule.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
+            <td>${schedule.departureTime}</td>
+            <td>${schedule.arrivalTime}</td>
             <td>${schedule.station.nameStation}</td>
             <td>${schedule.train.trainName}</td>
             <td><a href="/sbb_war/schedule/${schedule.id}">Edit</a></td>
