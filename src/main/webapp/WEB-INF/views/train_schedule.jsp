@@ -22,7 +22,7 @@
        Passengers on board: ${trainSchedule.train.passengers.size()}</p>
     <h2>Stations schedule</h2>
     <td>
-        <form action="../station/${trainSchedule.train.numberTrain}/form">
+        <form action="../train/${trainSchedule.train.numberTrain}/form">
             <button type="submit" class="btn btn-light">Add new schedule</button>
         </form>
     </td>
@@ -31,8 +31,8 @@
         <thead>
         <tr>
             <th>Station</th>
-            <th>Arrival time</th>
             <th>Departure time</th>
+            <th>Arrival time</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -42,8 +42,8 @@
         <tr>
             <td>${trainScheduleItem.station.nameStation}</td>
             <fmt:setLocale value="en_US"/>
-            <td><fmt:formatDate value="${trainScheduleItem.arrivalTime}" pattern="EEE HH:mm:ss"></fmt:formatDate></td>
-            <td><fmt:formatDate value="${trainScheduleItem.departureTime}" pattern="EEE HH:mm:ss"></fmt:formatDate></td>
+            <td><fmt:formatDate value="${trainScheduleItem.departureTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
+            <td><fmt:formatDate value="${trainScheduleItem.arrivalTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
             <td>
                 <form action="../station/${trainScheduleItem.id}">
                     <button type="submit" class="btn btn-light">Edit</button>

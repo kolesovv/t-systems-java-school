@@ -29,8 +29,8 @@
         <thead>
         <tr>
             <th>Train</th>
-            <th>Departure time</th>
             <th>Arrival time</th>
+            <th>Departure time</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -39,10 +39,10 @@
         <c:forEach var="stationScheduleItem" items="${stationSchedule.scheduleItemList}">
         <tr>
             <td>${stationScheduleItem.train.trainName}</td>
-            <td><fmt:formatDate value="${stationScheduleItem.departureTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
             <td><fmt:formatDate value="${stationScheduleItem.arrivalTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
+            <td><fmt:formatDate value="${stationScheduleItem.departureTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
             <td>
-                <form action="../station/${stationScheduleItem.id}">
+                <form action="../station/${stationScheduleItem.id}/edit">
                     <button type="submit" class="btn btn-light">Edit</button>
                 </form>
             </td>

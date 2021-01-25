@@ -18,7 +18,7 @@
 <div class="container">
     <h1></h1>
     <h2>Add schedule for current station</h2>
-    <form:form method="POST" action="/sbb/schedule/station">
+    <form:form method="POST" action="/sbb/schedule/station/add">
         <table class="table table-sm">
             <tr>
                 <td>Arrival time</td>

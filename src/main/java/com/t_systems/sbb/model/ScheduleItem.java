@@ -1,5 +1,6 @@
 package com.t_systems.sbb.model;
 
+import com.t_systems.sbb.entity.Schedule;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.text.ParseException;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ScheduleItem {
+    private long id;
     private long itemId;
     private Date arrivalTime;
     private Date departureTime;
@@ -16,10 +18,19 @@ public class ScheduleItem {
     public ScheduleItem() {
     }
 
-    public ScheduleItem(long itemId, Date arrivalTime, Date departureTime) {
+    public ScheduleItem(long id, long itemId, Date arrivalTime, Date departureTime) {
+        this.id = id;
         this.itemId = itemId;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getItemId() {
@@ -36,15 +47,7 @@ public class ScheduleItem {
     }
 
     public void setArrivalTime(String arrivalTime) throws ParseException {
-        if (arrivalTime == null || arrivalTime.equals("")){
-            this.departureTime = null;
-        }
-        else {
-            String date = "2021-01-01 ";
-            String time = ":00.0";
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.s", Locale.ENGLISH);
-            this.arrivalTime = sdf.parse(date + arrivalTime + time);
-        }
+        this.arrivalTime = stringToDate(arrivalTime);
     }
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss.s")
@@ -53,14 +56,18 @@ public class ScheduleItem {
     }
 
     public void setDepartureTime(String departureTime) throws ParseException {
-        if (departureTime == null || departureTime.equals("")){
-            this.departureTime = null;
+        this.departureTime = stringToDate(departureTime);
+    }
+
+    public static Date stringToDate(String dateTime) throws ParseException {
+        if (dateTime == null || dateTime.equals("")){
+            return null;
         }
         else {
             String date = "2021-01-01 ";
             String time = ":00.0";
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.s", Locale.ENGLISH);
-            this.departureTime = sdf.parse(date + departureTime + time);
+            return sdf.parse(date + dateTime + time);
         }
     }
 }

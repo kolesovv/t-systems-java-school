@@ -49,11 +49,22 @@ public class TrainScheduleController {
         return "train_schedule_add_form";
     }
 
-    @PostMapping()
-    public String updateTrainSchedule(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem,
-                                        @ModelAttribute("stationSchedule") TrainSchedule trainSchedule,
-                                        @ModelAttribute("trains") Collection<Station> stations,
-                                        SessionStatus status) {
+    @GetMapping(value="/{id}/edit")
+    public String getStationScheduleForm(@PathVariable int id, Model m){
+        Collection<Station> stations = stationGenericService.findAll();
+        Schedule schedule = scheduleService.findById(id);
+        m.addAttribute("schedule", schedule);
+        m.addAttribute("stations", stations);
+        m.addAttribute("command", new ScheduleItem(id, schedule.getTrain().getNumberTrain(),
+                null, null));
+        return "train_schedule_edit_form";
+    }
+
+    @PostMapping("/add")
+    public String addTrainSchedule(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem,
+                                      @ModelAttribute("stationSchedule") TrainSchedule trainSchedule,
+                                      @ModelAttribute("stations") Collection<Station> stations,
+                                      SessionStatus status) {
         Map<Long, Station> stationMap = new HashMap<>();
         for (Station station : stations) {
             stationMap.put(station.getIdStation(), station);
@@ -61,6 +72,27 @@ public class TrainScheduleController {
         Train train = trainSchedule.getTrain();
         Station station = stationMap.get(scheduleItem.getItemId());
         Schedule schedule = new Schedule(new Date(), new Date(), station, train);
+        scheduleService.save(schedule);
+        status.setComplete();
+        return "redirect:/schedule/train/" + train.getNumberTrain();
+    }
+
+    @PostMapping("/update")
+    public String updateTrainSchedule(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem,
+                                        @ModelAttribute("stationSchedule") TrainSchedule trainSchedule,
+                                        @ModelAttribute("stations") Collection<Station> stations,
+                                        SessionStatus status) {
+        Map<Long, Station> stationMap = new HashMap<>();
+        for (Station station : stations) {
+            stationMap.put(station.getIdStation(), station);
+        }
+        Train train = trainSchedule.getTrain();
+        Station station = stationMap.get(scheduleItem.getItemId());
+        Schedule schedule = scheduleService.findById(scheduleItem.getId());
+            schedule.setDepartureTime(scheduleItem.getDepartureTime());
+            schedule.setArrivalTime(scheduleItem.getArrivalTime());
+            schedule.setTrain(train);
+            schedule.setStation(station);
         scheduleService.save(schedule);
         status.setComplete();
         return "redirect:/schedule/train/" + train.getNumberTrain();

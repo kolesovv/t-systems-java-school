@@ -14,9 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/schedule/station")
@@ -42,16 +42,29 @@ public class StationScheduleController {
     @RequestMapping("/{id}/form")
     public String showStationScheduleForm(@PathVariable long id, Model m) {
         Collection<Train> trains = trainGenericService.findAll();
+        ScheduleItem scheduleItem = new ScheduleItem();
+        scheduleItem.setId(0);
         m.addAttribute("trains", trains);
-        m.addAttribute("command", new ScheduleItem());
+        m.addAttribute("command", scheduleItem);
         return "station_schedule_add_form";
     }
 
-    @PostMapping()
-    public String updateStationSchedule(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem,
+    @GetMapping(value="/{id}/edit")
+    public String getStationScheduleForm(@PathVariable int id, Model m){
+        Collection<Train> trains = trainGenericService.findAll();
+        Schedule schedule = scheduleService.findById(id);
+        m.addAttribute("schedule", schedule);
+        m.addAttribute("trains", trains);
+        m.addAttribute("command", new ScheduleItem(id, schedule.getTrain().getNumberTrain(),
+                null, null));
+        return "station_schedule_edit_form";
+    }
+
+    @PostMapping("/add")
+    public String addStationSchedule(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem,
                                         @ModelAttribute("stationSchedule") StationSchedule stationSchedule,
                                         @ModelAttribute("trains") Collection<Train> trains,
-                                        SessionStatus status) throws ParseException {
+                                        SessionStatus status) {
         Map<Long, Train> trainMap = new HashMap<>();
         for (Train train : trains) {
             trainMap.put(train.getNumberTrain(), train);
@@ -66,6 +79,27 @@ public class StationScheduleController {
         return "redirect:/schedule/station/" + station.getIdStation();
     }
 
+    @PostMapping("/update")
+    public String updateStationSchedule(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem,
+                                        @ModelAttribute("stationSchedule") StationSchedule stationSchedule,
+                                        @ModelAttribute("trains") Collection<Train> trains,
+                                        SessionStatus status) {
+        Map<Long, Train> trainMap = new HashMap<>();
+        for (Train train : trains) {
+            trainMap.put(train.getNumberTrain(), train);
+        }
+        Train train = trainMap.get(scheduleItem.getItemId());
+        Station station = stationSchedule.getStation();
+        Schedule schedule = scheduleService.findById(scheduleItem.getId());
+            schedule.setDepartureTime(scheduleItem.getDepartureTime());
+            schedule.setArrivalTime(scheduleItem.getArrivalTime());
+            schedule.setTrain(train);
+            schedule.setStation(station);
+        scheduleService.save(schedule);
+        status.setComplete();
+        return "redirect:/schedule/station/" + station.getIdStation();
+    }
+
     @GetMapping(value = "/delete/{id}")
     public String delete(@PathVariable int id,
                          @ModelAttribute("stationSchedule") StationSchedule stationSchedule,
@@ -74,6 +108,4 @@ public class StationScheduleController {
         status.setComplete();
         return "redirect:/schedule/station/" + stationSchedule.getStation().getIdStation();
     }
-
-
 }
