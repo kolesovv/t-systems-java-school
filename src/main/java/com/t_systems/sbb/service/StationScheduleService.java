@@ -35,14 +35,9 @@ public class StationScheduleService {
         List<StationScheduleItem> scheduleItemList = new ArrayList<>();
         for (Schedule schedule : scheduleCollection) {
             StationScheduleItem scheduleItem =
-                    new StationScheduleItem(schedule.getTrain(), schedule.getArrivalTime(), schedule.getDepartureTime());
+                    new StationScheduleItem(schedule.getId(), schedule.getTrain(), schedule.getArrivalTime(), schedule.getDepartureTime());
             scheduleItemList.add(scheduleItem);
         }
         return new StationSchedule(station, scheduleItemList);
-    }
-
-    @Transactional
-    public void saveStationSchedule(Schedule schedule){
-        scheduleDAO.save(schedule);
     }
 }

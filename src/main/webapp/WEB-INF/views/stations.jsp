@@ -18,9 +18,10 @@
     <h2>Stations List</h2>
     <td>
         <form action="station/form">
-            <button type="submit" class="btn btn-link">Add new station</button>
+            <button type="submit" class="btn btn-dark">Add new station</button>
         </form>
     </td>
+    <title></title>
     <%--<p>The .table-striped class adds zebra-stripes to a table:</p>--%>
     <table class="table table-sm">
         <thead>

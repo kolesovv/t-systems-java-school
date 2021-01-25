@@ -2,21 +2,21 @@ package com.t_systems.sbb.service;
 
 import com.t_systems.sbb.dao.GenericDAO;
 import com.t_systems.sbb.dao.ScheduleDAOImpl;
+import com.t_systems.sbb.entity.Schedule;
 import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
 import com.t_systems.sbb.model.TrainItem;
+import com.t_systems.sbb.model.TrainSchedule;
+import com.t_systems.sbb.model.TrainScheduleItem;
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
-public class TrainSearchServiceImpl {
+public class TrainScheduleService {
 
     @Autowired
     private GenericDAO<Train> trainGenericDAO;
@@ -41,5 +41,19 @@ public class TrainSearchServiceImpl {
                 specificTrainList.add(new TrainItem(currentTrain, dateStationDeparture, dateStationArrival));
             }
             return  specificTrainList;
+    }
+
+    @Transactional
+    public TrainSchedule getTrainSchedule(long trainId){
+        Train train = trainGenericDAO.findById(trainId);
+        Collection<Schedule> scheduleCollection = scheduleDAO.getScheduleByTrain(trainId);
+        List<TrainScheduleItem> scheduleItemList = new ArrayList<>();
+        for (Schedule schedule: scheduleCollection) {
+            TrainScheduleItem scheduleItem =
+                    new TrainScheduleItem(schedule.getId(),schedule.getStation(), schedule. getArrivalTime(), schedule.getDepartureTime());
+            scheduleItemList.add(scheduleItem);
+        }
+        scheduleItemList.sort(Comparator.comparing(TrainScheduleItem::getDepartureTime));
+        return new TrainSchedule(train, scheduleItemList);
     }
 }

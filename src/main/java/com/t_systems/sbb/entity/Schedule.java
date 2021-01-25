@@ -13,10 +13,8 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "arrival_time")
     private Date arrivalTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "departure_time")
     private Date departureTime;
 

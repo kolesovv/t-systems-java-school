@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @Service
-public class ScheduleServiceImpl {
+public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
     ScheduleDAOImpl scheduleDAO;
@@ -33,8 +33,8 @@ public class ScheduleServiceImpl {
         return scheduleDAO.findAll();
     }
 
-    @Transactional
-    public void create(Date arrivalTime, Date departureTime, long trainId, long stationId) {
+    @Override
+    public void create(java.sql.Date arrival, java.sql.Date departure, long trainId, long stationId) {
 
     }
 
@@ -56,15 +56,5 @@ public class ScheduleServiceImpl {
     @Transactional
     public void deleteById(long entityId) {
         scheduleDAO.deleteById(entityId);
-    }
-
-    @Transactional
-    public Collection<Schedule> getScheduleByStation(long id) {
-        return scheduleDAO.getScheduleByStation(id);
-    }
-
-    @Transactional
-    public Collection<Schedule> getScheduleByTrain(long id) {
-        return scheduleDAO.getScheduleByTrain(id);
     }
 }

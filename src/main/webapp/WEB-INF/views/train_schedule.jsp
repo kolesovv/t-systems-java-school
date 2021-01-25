@@ -1,3 +1,4 @@
+<%@ page import="java.util.Locale" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -5,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Trains</title>
+    <title>Stations</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -16,38 +17,40 @@
 <body>
 
 <div class="container">
-    <h1>${stationSchedule.station.nameStation}</h1>
-    <h2>Train schedule</h2>
+    <h1>Train: ${trainSchedule.train.trainName}</h1>
+    <p>Seats: ${trainSchedule.train.seats} /
+       Passengers on board: ${trainSchedule.train.passengers.size()}</p>
+    <h2>Stations schedule</h2>
     <td>
-        <form action="../station/${stationSchedule.station.idStation}/form">
+        <form action="../station/${trainSchedule.train.numberTrain}/form">
             <button type="submit" class="btn btn-light">Add new schedule</button>
         </form>
     </td>
-    <title></title>
     <%--<p>The .table-striped class adds zebra-stripes to a table:</p>--%>
     <table class="table table-sm">
         <thead>
         <tr>
-            <th>Train</th>
-            <th>Departure time</th>
+            <th>Station</th>
             <th>Arrival time</th>
+            <th>Departure time</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="stationScheduleItem" items="${stationSchedule.scheduleItemList}">
+        <c:forEach var="trainScheduleItem" items="${trainSchedule.scheduleItemList}">
         <tr>
-            <td>${stationScheduleItem.train.trainName}</td>
-            <td><fmt:formatDate value="${stationScheduleItem.departureTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
-            <td><fmt:formatDate value="${stationScheduleItem.arrivalTime}" pattern="HH:mm:ss"></fmt:formatDate></td>
+            <td>${trainScheduleItem.station.nameStation}</td>
+            <fmt:setLocale value="en_US"/>
+            <td><fmt:formatDate value="${trainScheduleItem.arrivalTime}" pattern="EEE HH:mm:ss"></fmt:formatDate></td>
+            <td><fmt:formatDate value="${trainScheduleItem.departureTime}" pattern="EEE HH:mm:ss"></fmt:formatDate></td>
             <td>
-                <form action="../station/${stationScheduleItem.id}">
+                <form action="../station/${trainScheduleItem.id}">
                     <button type="submit" class="btn btn-light">Edit</button>
                 </form>
             </td>
             <td>
-                <form action="../station/delete/${stationScheduleItem.id}">
+                <form action="../station/delete/${trainScheduleItem.id}">
                     <button type="submit" class="btn btn-warning">Delete</button>
                 </form>
             </td>

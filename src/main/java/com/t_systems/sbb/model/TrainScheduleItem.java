@@ -1,18 +1,18 @@
 package com.t_systems.sbb.model;
 
-import com.t_systems.sbb.entity.Train;
+import com.t_systems.sbb.entity.Station;
 
 import java.util.Date;
 
-public class StationScheduleItem {
+public class TrainScheduleItem{
     private long id;
-    private Train train;
+    private Station station;
     private Date arrivalTime;
     private Date departureTime;
 
-    public StationScheduleItem(long id, Train train, Date arrivalTime, Date departureTime) {
+    public TrainScheduleItem(long id, Station station, Date arrivalTime, Date departureTime) {
         this.id = id;
-        this.train = train;
+        this.station = station;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
     }
@@ -25,12 +25,12 @@ public class StationScheduleItem {
         this.id = id;
     }
 
-    public Train getTrain() {
-        return train;
+    public Station getStation() {
+        return station;
     }
 
-    public void setTrain(Train train) {
-        this.train = train;
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     public Date getArrivalTime() {

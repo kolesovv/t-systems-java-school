@@ -17,7 +17,7 @@
 
 <div class="container">
     <h1></h1>
-    <h2>Add schedule for current station</h2>
+    <h2>Add schedule for current train</h2>
     <form:form method="POST" action="/sbb/schedule/station">
         <table class="table table-sm">
             <tr>
@@ -25,10 +25,10 @@
                 <td><form:input path="arrivalTime" type="time" class="form-control"/></td>
                 <td>Departure time: </td>
                 <td><form:input path="departureTime" type="time" class="form-control"/></td>
-                <td>Train</td>
+                <td>Station</td>
                 <td>
                     <form:select path="itemId" class="form-control">
-                        <form:options items="${trains}" itemLabel="trainName" itemValue="numberTrain"/>
+                        <form:options items="${stations}" itemLabel="nameStation" itemValue="idStation"/>
                     </form:select>
                 </td>
                 <td></td>
