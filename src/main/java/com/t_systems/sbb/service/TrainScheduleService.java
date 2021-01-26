@@ -2,6 +2,7 @@ package com.t_systems.sbb.service;
 
 import com.t_systems.sbb.dao.GenericDAO;
 import com.t_systems.sbb.dao.ScheduleDAOImpl;
+import com.t_systems.sbb.dao.TrainDAOImpl;
 import com.t_systems.sbb.entity.Schedule;
 import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.entity.Train;
@@ -19,7 +20,7 @@ import java.util.*;
 public class TrainScheduleService {
 
     @Autowired
-    private GenericDAO<Train> trainGenericDAO;
+    private TrainDAOImpl trainGenericDAO;
 
     @Autowired
     private ScheduleDAOImpl scheduleDAO;
