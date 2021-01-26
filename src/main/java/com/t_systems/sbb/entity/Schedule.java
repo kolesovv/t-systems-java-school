@@ -1,7 +1,5 @@
 package com.t_systems.sbb.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;

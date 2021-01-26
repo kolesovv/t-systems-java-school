@@ -2,6 +2,7 @@ package com.t_systems.sbb.controller;
 
 import com.t_systems.sbb.entity.Station;
 import com.t_systems.sbb.service.GenericService;
+import com.t_systems.sbb.service.StationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import java.util.Collection;
 @RequestMapping("/station")
 public class StationController {
     @Autowired
-    private GenericService<Station> stationGenericService;
+    private StationServiceImpl stationGenericService;
 
     @GetMapping()
     public String getStations(Model m) {

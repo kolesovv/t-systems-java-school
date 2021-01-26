@@ -34,7 +34,7 @@
         <tr>
             <th>Name</th>
             <th>Number of seats</th>
-            <th>Passengers</th>
+            <%--<th>Passengers</th>--%>
             <th>Edit</th>
             <th>Delete</th>
             <th>Schedule</th>
@@ -45,11 +45,11 @@
             <tr>
                 <td>${train.trainName}</td>
                 <td>${train.seats}</td>
-                <td>
+                <%--<td>
                     <form action="train/${train.numberTrain}/passengers">
                         <button type="submit" class="btn btn-light">Passengers</button>
                     </form>
-                </td>
+                </td>--%>
                 <td>
                     <form action="train/${train.numberTrain}">
                         <button type="submit" class="btn btn-light">Edit</button>

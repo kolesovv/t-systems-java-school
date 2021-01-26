@@ -8,6 +8,7 @@ import com.t_systems.sbb.model.StationSchedule;
 import com.t_systems.sbb.model.TrainSchedule;
 import com.t_systems.sbb.service.GenericService;
 import com.t_systems.sbb.service.ScheduleService;
+import com.t_systems.sbb.service.StationServiceImpl;
 import com.t_systems.sbb.service.TrainScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class TrainScheduleController {
     private TrainScheduleService trainScheduleService;
 
     @Autowired
-    private GenericService<Station> stationGenericService;
+    private StationServiceImpl stationGenericService;
 
     @GetMapping(value = "/{id}")
     public String getTrainSchedule(@PathVariable int id, Model m) {

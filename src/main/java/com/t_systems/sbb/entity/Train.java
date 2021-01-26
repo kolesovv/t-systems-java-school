@@ -15,12 +15,12 @@ public class Train implements Serializable {
     private String trainName;
     @Column(name = "seats")
     private long seats;
-    @ManyToMany(fetch = FetchType.EAGER,
+    /*@ManyToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "train_has_passenger",
             joinColumns =@JoinColumn(name = "train_id"),
             inverseJoinColumns = @JoinColumn(name = "passenger_id"))
-    private Set<Passenger> passengers;
+    private Set<Passenger> passengers;*/
 
     public Train() {
     }
@@ -58,13 +58,13 @@ public class Train implements Serializable {
         this.seats = seats;
     }
 
-    public Set<Passenger> getPassengers() {
+    /*public Set<Passenger> getPassengers() {
         return passengers;
     }
 
     public void setPassengers(Set<Passenger> passengers) {
         this.passengers = passengers;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -72,7 +72,6 @@ public class Train implements Serializable {
                 "numberTrain=" + numberTrain +
                 ", trainName='" + trainName + '\'' +
                 ", seats=" + seats +
-                ", passengers=" + passengers +
                 '}';
     }
 }

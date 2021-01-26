@@ -24,12 +24,12 @@ public class Passenger implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dateOfBirth;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    /*@ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "train_has_passanger",
             joinColumns =@JoinColumn(name = "passenger_id"),
             inverseJoinColumns = @JoinColumn(name = "train_id"))
-    private Set<Train> trains;
+    private Set<Train> trains;*/
 
     public Passenger() {
     }
@@ -72,13 +72,13 @@ public class Passenger implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Set<Train> getTrains() {
+    /*public Set<Train> getTrains() {
         return trains;
     }
 
     public void setTrains(Set<Train> trains) {
         this.trains = trains;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -87,7 +87,7 @@ public class Passenger implements Serializable {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", trains=" + trains +
+                /*", trains=" + trains +*/
                 '}';
     }
 }

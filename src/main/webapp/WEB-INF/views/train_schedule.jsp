@@ -18,8 +18,7 @@
 
 <div class="container">
     <h1>Train: ${trainSchedule.train.trainName}</h1>
-    <p>Seats: ${trainSchedule.train.seats} /
-       Passengers on board: ${trainSchedule.train.passengers.size()}</p>
+    <p>Seats: ${trainSchedule.train.seats}</p>
     <h2>Stations schedule</h2>
     <td>
         <th>

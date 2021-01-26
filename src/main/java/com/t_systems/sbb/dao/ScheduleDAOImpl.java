@@ -1,15 +1,14 @@
 package com.t_systems.sbb.dao;
 
 import com.t_systems.sbb.entity.Schedule;
-import com.t_systems.sbb.model.ScheduleModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
