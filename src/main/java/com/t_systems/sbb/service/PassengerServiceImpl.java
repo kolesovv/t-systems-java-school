@@ -28,20 +28,8 @@ public class PassengerServiceImpl implements GenericService<Passenger>{
 
     @Override
     @Transactional
-    public void create(Passenger entity) {
-        passengerDAO.create(entity);
-    }
-
-    @Override
-    @Transactional
     public void save(Passenger entity) {
-        passengerDAO.create(entity);
-    }
-
-    @Override
-    @Transactional
-    public void delete(Passenger entity) {
-        passengerDAO.delete(entity);
+        passengerDAO.save(entity);
     }
 
     @Override

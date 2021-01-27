@@ -29,19 +29,9 @@ public class PassengerDAOImpl implements GenericDAO<Passenger> {
     }
 
     @Override
-    public void create(Passenger entity) {
-
-    }
-
-    @Override
     public void save(Passenger entity) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
-    }
-
-    @Override
-    public void delete(Passenger entity) {
-
     }
 
     @Override

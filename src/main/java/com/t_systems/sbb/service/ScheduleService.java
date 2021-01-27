@@ -12,11 +12,7 @@ public interface ScheduleService {
 
     void create(Date arrival, Date departure, long trainId, long stationId);
 
-    void create(final Schedule schedule);
-
     void save(final Schedule schedule);
-
-    void delete(final Schedule schedule);
 
     void deleteById(final long id);
 }

@@ -36,11 +36,11 @@ public class PassengerController {
         return "passenger_add_form";
     }
 
-    @PostMapping("/new")
+    /*@PostMapping("/new")
     public String addStation(@ModelAttribute("passenger") Passenger passenger){
         passengerGenericService.create(passenger);
         return "redirect:/passenger";
-    }
+    }*/
 
     @PostMapping()
     public String updateStation(@ModelAttribute("passenger") Passenger passenger){

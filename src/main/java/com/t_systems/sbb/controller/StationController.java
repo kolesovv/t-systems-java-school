@@ -36,11 +36,11 @@ public class StationController {
         return "station_add_form";
     }
 
-    @PostMapping("/new")
+    /*@PostMapping("/new")
     public String addStation(@ModelAttribute("station")  Station station){
         stationGenericService.create(station);
         return "redirect:/station";
-    }
+    }*/
 
     @PostMapping()
     public String updateStation(@ModelAttribute("station") Station station){

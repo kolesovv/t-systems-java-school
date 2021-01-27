@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.Date;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -46,11 +45,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Transactional
     public void save(Schedule entity) {
         scheduleDAO.save(entity);
-    }
-
-    @Transactional
-    public void delete(Schedule entity) {
-        scheduleDAO.delete(entity);
     }
 
     @Transactional

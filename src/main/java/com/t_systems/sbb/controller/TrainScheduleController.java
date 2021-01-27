@@ -110,6 +110,4 @@ public class TrainScheduleController {
         status.setComplete();
         return "redirect:/schedule/train/" + stationSchedule.getStation().getIdStation();
     }
-
-
 }

@@ -29,19 +29,9 @@ public class StationDAOImpl implements GenericDAO<Station> {
     }
 
     @Override
-    public void create(Station entity) {
-
-    }
-
-    @Override
     public void save(Station entity) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
-    }
-
-    @Override
-    public void delete(Station entity) {
-
     }
 
     @Override

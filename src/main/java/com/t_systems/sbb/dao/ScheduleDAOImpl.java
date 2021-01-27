@@ -18,13 +18,11 @@ public class ScheduleDAOImpl {
     @Autowired
     SessionFactory sessionFactory;
 
-    /*@Override*/
     public Schedule findById(long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Schedule.class, id);
     }
 
-    /*@Override*/
     public List<Schedule> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> scheduleQuery = session.createQuery("FROM Schedule");
@@ -43,23 +41,11 @@ public class ScheduleDAOImpl {
         scheduleQuery.executeUpdate();
     }
 
-    /*@Override*/
-    public void create(Schedule schedule) {
-
-    }
-
-    /*@Override*/
     public void save(Schedule entity) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
     }
 
-    /*@Override*/
-    public void delete(Schedule entity) {
-
-    }
-
-    /*@Override*/
     public void deleteById(long entityId) {
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> trainQuery = session.createQuery("DELETE FROM Schedule WHERE id=: scheduleId");
@@ -67,7 +53,6 @@ public class ScheduleDAOImpl {
         trainQuery.executeUpdate();
     }
 
-    /*@Override*/
     public Collection<Schedule> getScheduleByStation(long stationId){
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> scheduleQuery = session.createQuery("FROM Schedule WHERE station_id =: stationId");
@@ -75,7 +60,6 @@ public class ScheduleDAOImpl {
         return scheduleQuery.getResultList();
     }
 
-    /*@Override*/
     public Collection<Schedule> getScheduleByTrain(long trainId) {
         Session session = sessionFactory.getCurrentSession();
         Query<Schedule> scheduleQuery = session.createQuery("FROM Schedule WHERE train_id =: trainId");

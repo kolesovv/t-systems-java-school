@@ -37,11 +37,11 @@ public class TrainController {
         return "train_add_form";
     }
 
-    @PostMapping("/new")
+    /*@PostMapping("/new")
     public String addTrain(@ModelAttribute("train") Train train){
         trainGenericService.create(train);
         return "redirect:/train";
-    }
+    }*/
 
     @PostMapping()
     public String updateTrain(@ModelAttribute("train") Train train){
@@ -55,11 +55,11 @@ public class TrainController {
         return "redirect:/train";
     }
 
-    @GetMapping("/{id}/passengers")
+    /*@GetMapping("/{id}/passengers")
     public String getPassengers(@PathVariable int id, Model m) {
         Collection<Passenger> passengers = trainGenericService.getPassengersByTrainId(id);
         m.addAttribute("command", trainGenericService.findById(id));
         m.addAttribute("passengers", passengers);
         return "train_passengers";
-    }
+    }*/
 }
